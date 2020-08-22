@@ -1,0 +1,8 @@
+/nbproject/private/
+/nbproject/*
+composer.phar
+composer.lock
+/vendor/
+/src/Configs/pdoConfig.php
+/src/Configs/ProjectDefines.php
+*.csv
