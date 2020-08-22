@@ -1,0 +1,3 @@
+index:
+    path: /
+    controller: Exdrals\Bugebo\HomeController::index

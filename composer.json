@@ -18,7 +18,9 @@
         "php": ">=7.4",
         "ramsey/uuid" :"^3.9",
         "symfony/routing":"^5",
-        "symfony/http-foundation":"^5"
+        "symfony/http-foundation":"^5",
+        "symfony/yaml":"^5",
+        "symfony/config":"^5"
     },    
     "autoload-dev":{
     "psr-4":{
