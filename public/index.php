@@ -35,24 +35,50 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo;
 
-use Symfony\Component\HttpFoundation\{Request, Reponse};
-use \Exdrals\Excidia\Component\Router\{RouteEntity, Router};
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 error_reporting(E_ALL);
 ini_set ('display_errors', 'On');
 
 require_once __DIR__ . '/../vendor/autoload.php';
-echo '<pre>';
 
-$route = new RouteEntity();
-
-$router = new Router();
-
-$router->add($route);
-
-$route->setAction('bla1');
-$router->add($route);
-
-$find = $router->find($route);
-
-print_r($find);
+ 
+try
+{
+    // Load routes from the yaml file
+    $fileLocator = new FileLocator(array(__DIR__.'/../config'));
+    $loader = new YamlFileLoader($fileLocator);
+    $routes = $loader->load('routes.yaml');
+ 
+    // Init RequestContext object
+    $context = new RequestContext();
+    $context->fromRequest(Request::createFromGlobals());
+ 
+    // Init UrlMatcher object
+    $matcher = new UrlMatcher($routes, $context);
+ 
+    // Find the current route
+    $parameters = $matcher->match($context->getPathInfo());
+ 
+    // How to generate a SEO URL
+    $generator = new UrlGenerator($routes, $context);
+    $url = $generator->generate('foo_placeholder_route', array(
+      'id' => 123,
+    ));
+ 
+    echo '<pre>';
+    print_r($parameters);
+ 
+    echo 'Generated URL: ' . $url;
+    exit;
+}
+catch (ResourceNotFoundException $e)
+{
+  echo $e->getMessage();
+}
