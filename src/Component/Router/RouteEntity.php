@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Router;
+use Exdrals\Excidia\Interfaces\Comparable;
 
-class RouteEntity {
+class RouteEntity implements Comparable {
 
     protected string $route;
     
@@ -34,6 +35,10 @@ class RouteEntity {
              ->setParams($params);
     }
     
+    public function compare($compareRouteEntity): bool
+    {
+        return false;
+    }
     public function getRoute(): string 
     {
         return $this->route;

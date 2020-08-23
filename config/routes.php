@@ -2,8 +2,19 @@
 return [
           '/' => [
               'description' => 'Default Route > Index',
-              'medthos' => 'GET',
+              'medthod' => 'GET',
               'controller' => 'Exrals\\Bugebo\\Controller\\HomeController',
               'action'  => 'index'
           ]
 ];
+
+interface iFoo {
+    public function foobar($todo);
+}
+
+class Foo implements iFoo {
+    public function foobar(MyTypeHint $todo)
+    {
+        
+    }
+}

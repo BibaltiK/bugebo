@@ -36,9 +36,23 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo;
 
 use Symfony\Component\HttpFoundation\{Request, Reponse};
+use \Exdrals\Excidia\Component\Router\{RouteEntity, Router};
 
 error_reporting(E_ALL);
 ini_set ('display_errors', 'On');
 
 require_once __DIR__ . '/../vendor/autoload.php';
+echo '<pre>';
 
+$route = new RouteEntity();
+
+$router = new Router();
+
+$router->add($route);
+
+$route->setAction('bla1');
+$router->add($route);
+
+$find = $router->find($route);
+
+print_r($find);
