@@ -69,10 +69,7 @@ class Router {
                             sprintf ('Class %s not found.', $this->routeClass)
                     );
         if (!method_exists($this->routeClass, $this->routeAction))
-            throw new ResourceNotFoundException(
-                    sprintf ('Method %s not exists in Class %s.', 
-                            $this->routeAction, $this->routeClass)
-                    );
+            throw new ResourceNotFoundException(sprintf ('Method %s not exists in Class %s.', $this->routeAction, $this->routeClass));
         return call_user_func_array(array(new $this->routeClass(), 
                                           $this->routeAction
                                          ), 
