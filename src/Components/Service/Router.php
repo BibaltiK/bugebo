@@ -49,10 +49,7 @@ class Router {
     
     public function matchRequest() : self
     {
-        $matcher = new UrlMatcher($this->routeCollection, 
-                                  (new RequestContext())->
-                                        fromRequest($this->request)
-                                  );            
+        $matcher = new UrlMatcher($this->routeCollection, (new RequestContext())->fromRequest($this->request));            
         $parameters = $matcher->matchRequest($this->request);
         $matchClassAndAction = explode('::', $parameters['_controller']);
         $this->routeClass = $matchClassAndAction[0];
@@ -70,11 +67,7 @@ class Router {
                     );
         if (!method_exists($this->routeClass, $this->routeAction))
             throw new ResourceNotFoundException(sprintf ('Method %s not exists in Class %s.', $this->routeAction, $this->routeClass));
-        return call_user_func_array(array(new $this->routeClass(), 
-                                          $this->routeAction
-                                         ), 
-                                    $this->routeParam
-                );
+        return call_user_func_array(array(new $this->routeClass(),$this->routeAction), $this->routeParam);
     }
     
 }
