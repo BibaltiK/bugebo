@@ -1,9 +1,21 @@
+index:
+    path:     /
+    controller: 'Exdrals\Bugebo\Controller\HomeController::index' 
+
+
 foo_route:
     path:     /foo
-    defaults: { controller: 'FooController::indexAction' }
+    controller: 'FooController::indexAction' 
  
 foo_placeholder_route:
     path:     /foo/{id}
-    defaults: { controller: 'FooController::loadAction' }
+    controller: 'FooController::loadAction' 
     requirements:
         id: '[0-9]+'
+
+foo_placeholder_route2:
+    path:     /foo/{id}/{bla}
+    controller: 'FooController::loadAction'
+    requirements:
+        id: '[0-9]+'
+        bla: '[a-z,A-z]+'
