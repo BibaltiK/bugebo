@@ -16,10 +16,14 @@ class Router
 
     protected Request $request;
     
+    protected string $requestURI;
+
+
     public function __construct(Request $request) 
     {
         $this->routes = [];
         $this->request = $request;
+        $this->requestURI = $this->getModifiedRequestURI();
     }
 
     
@@ -31,31 +35,33 @@ class Router
         $routes = include $routeConfigFile;
         
         if (!is_array($routes))
-            throw new UnexpectedContentException (sprintf ('Routerconfig musst be a array'));
+            throw new UnexpectedContentException (sprintf('Routerconfig musst be a array'));
         
         $this->routes = $routes;
     }
 
     
     public function match()
-    {        
-        $requestURI = $this->getModifiedRequestURI();        
-        
+    {               
         foreach ($this->routes as $route => $container) 
         {                        
             $matches = [];
             $regEx = $this->getRegEx($container['method'], $container['path']);
-            if (!preg_match($regEx, $requestURI, $matches)) 
+            
+            if (!preg_match($regEx, $this->requestURI, $matches)) 
             {
                 continue;
             }                        
-            if (array_key_exists('params', $container))
-                    $container['params'] = $matches[array_key_last($matches)];
             
+            if (array_key_exists('params', $container))
+            {
+                $container['params'] = $matches[array_key_last($matches)];
+            }
+                                
             return $container;
         }    
           
-        throw new RouteNotFoundException(sprintf('Keine entsprechende Route für <b>%s</b> gefunden.',$requestURI));
+        throw new RouteNotFoundException(sprintf('No matching route found for: <b>%s</b>',$this->requestURI));
     }
     
     protected function getModifiedRequestURI() : string
@@ -67,7 +73,9 @@ class Router
     protected function existsConfigFile(string $configFile) : bool
     {
         if ((!is_file($configFile))  || (!is_readable($configFile)))
+        {
             return false;
+        }            
         return true;
     }
 
