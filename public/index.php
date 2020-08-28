@@ -35,10 +35,10 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo;
 
+use Exdrals\Excidia\Component\Router\Router;
+use Exdrals\Excidia\Component\Exception\{FileNotFoundException, UnexpectedContentException};
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Exdrals\Excidia\Components\Service\Router;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use \Symfony\Component\HttpFoundation\Response;
 
 error_reporting(E_ALL);
 ini_set ('display_errors', 'On');
@@ -48,12 +48,19 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try
 {    
     $request = (new Request())->createFromGlobals();
-    $response = (new Router($request, __DIR__.'/../config'))->load()->matchRequest()->callRoute();
-    $response->send();
+    $router = new Router();
+    $router->setRoutes(__DIR__.'/../config/routes.php');
+    $route = $router->match($request);
+    
+    echo '<pre>';
 }
-catch (ResourceNotFoundException $e)
+catch (FileNotFoundException $e)
 {
-    $redirect = (new RedirectResponse('/', 301))->send();
+    echo $e->getMessage();
+}
+catch (UnexpectedContentException $e)
+{
+    echo $e->getMessage();
 }
 catch (\Exception $e)
 {

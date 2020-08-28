@@ -1,6 +1,6 @@
 index:
     path:     /
-    controller: 'Exdrals\Bugebo\Controller\HomeController::index' 
+    controller: 'Exdrals\Bugebo\Controller\Index::index' 
 
 
 foo_route:
