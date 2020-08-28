@@ -51,9 +51,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try
 {    
     $request = (new Request())->createFromGlobals();
-    $router = new Router();
+    $router = new Router($request);
     $router->setRoutes(__DIR__.'/../config/routes.php');
-    $route = $router->match($request);
+    $route = $router->match();
     
     echo '<pre>';
     print_r($route);

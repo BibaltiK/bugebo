@@ -14,16 +14,18 @@ class Router
 {
     protected ?array $routes = [];
 
+    protected Request $request;
     
-    public function __construct() 
+    public function __construct(Request $request) 
     {
         $this->routes = [];
+        $this->request = $request;
     }
 
     
     public function setRoutes(string $routeConfigFile) 
     {
-        if ((!is_file($routeConfigFile))  || (!is_readable($routeConfigFile)))
+        if ((!$this->existsConfigFile($routeConfigFile)))
             throw new FileNotFoundException (sprintf('File: %s not found.',$routeConfigFile));
         
         $routes = include $routeConfigFile;
@@ -35,9 +37,9 @@ class Router
     }
 
     
-    public function match(Request $request)
+    public function match()
     {        
-        $requestURI = $request->getMethod().'_'.$request->getRequestUri();        
+        $requestURI = $this->getModifiedRequestURI();        
         
         foreach ($this->routes as $route => $container) 
         {                        
@@ -56,10 +58,24 @@ class Router
         throw new RouteNotFoundException(sprintf('Keine entsprechende Route für <b>%s</b> gefunden.',$requestURI));
     }
     
+    protected function getModifiedRequestURI() : string
+    {
+        return $this->request->getMethod().'_'.$this->request->getRequestUri();
+    }
+
+
+    protected function existsConfigFile(string $configFile) : bool
+    {
+        if ((!is_file($configFile))  || (!is_readable($configFile)))
+            return false;
+        return true;
+    }
+
+
     protected function getRegEx(string $method, string $route) : string
     {
         $regEx = '('.$method.')_'.$route;
         $regEx = "~^$regEx/?$~i";
         return $regEx;
-    }
+    }    
 }
