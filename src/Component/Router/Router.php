@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Router;
 
-use Exdrals\Excidia\Component\Exception\{FileNotFoundException, UnexpectedContentException};
+use Exdrals\Excidia\Component\Exception\{FileNotFoundException, 
+                                         RouteNotFoundException,
+                                         UnexpectedContentException
+    };
 use Symfony\Component\HttpFoundation\Request;
 
 class Router 
@@ -50,7 +53,7 @@ class Router
             return $container;
         }    
           
-        throw new FileNotFoundException(sprintf('Keine entsprechende Route für <b>%s</b> gefunden.',$requestURI));
+        throw new RouteNotFoundException(sprintf('Keine entsprechende Route für <b>%s</b> gefunden.',$requestURI));
     }
     
     protected function getRegEx(string $method, string $route) : string

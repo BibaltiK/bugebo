@@ -36,7 +36,10 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo;
 
 use Exdrals\Excidia\Component\Router\Router;
-use Exdrals\Excidia\Component\Exception\{FileNotFoundException, UnexpectedContentException};
+use Exdrals\Excidia\Component\Exception\{FileNotFoundException, 
+                                         RouteNotFoundException,
+                                         UnexpectedContentException
+    };
 use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
 
@@ -55,6 +58,10 @@ try
     echo '<pre>';
 }
 catch (FileNotFoundException $e)
+{
+    echo $e->getMessage();
+}
+catch (RouteNotFoundException $e)
 {
     echo $e->getMessage();
 }
