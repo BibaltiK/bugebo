@@ -42,7 +42,7 @@ class Router
         foreach ($this->routes as $route => $container) 
         {                        
             $matches = [];
-            $regEx = $this->getRegEx($container['method'], $route);
+            $regEx = $this->getRegEx($container['method'], $container['path']);
             if (!preg_match($regEx, $requestURI, $matches)) 
             {
                 continue;

@@ -56,6 +56,7 @@ try
     $route = $router->match($request);
     
     echo '<pre>';
+    print_r($route);
 }
 catch (FileNotFoundException $e)
 {
