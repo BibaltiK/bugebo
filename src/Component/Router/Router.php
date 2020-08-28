@@ -29,7 +29,7 @@ class Router
     
     public function setRoutes(string $routeConfigFile) 
     {
-        if ((!$this->existsConfigFile($routeConfigFile)))
+        if (!$this->existsConfigFile($routeConfigFile))
             throw new FileNotFoundException (sprintf('File: %s not found.',$routeConfigFile));
         
         $routes = include $routeConfigFile;
