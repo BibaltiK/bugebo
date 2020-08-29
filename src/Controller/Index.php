@@ -7,11 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Index
 {
+    protected Response $response;
+    
+    public function __construct(Response $response)
+    {
+        $this->response = $response;
+    }
     public function index(): Response
     {
-        $response = new Response();        
-        $response->setContent("<p>Hallo Welt!</p>");
+        $this->response->setContent("<p>Hallo Welt!</p>");
         
-        return $response;
+        return $this->response;
     }
 }
