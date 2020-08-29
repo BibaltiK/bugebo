@@ -35,14 +35,16 @@ class Container
         $this->dependencies = $dependencies;   
     }
     
-    public function add(string $class, ?string $action = null) : object
+    public function add(string $class) : object
     {
         $this->objects[$class] = new $class();
-        if ($action)
-        {
-            $this->objects[$class] = $this->objects[$class]->$action();
-        }
         return $this->objects[$class];
+    }
+    
+    public function addObject(string $class, object $object) : object
+    {
+        $this->objects[$class] = $object;
+        return $object;
     }
     
     public function get(string $class): ?object
@@ -55,6 +57,14 @@ class Container
         {
             throw new Exception(sprintf('Klasse <b>%s</b> im Container nicht gefunden',$class));
         }
+        $params = [];
+        foreach ($this->dependencies[$class]['dependencies'] as $dependencies => $dependency)
+        {
+            $params[] = $this->get($dependency);
+        }        
+        
+        $g = new $class($params);
+        print_r($g);
         return null;
     }
 

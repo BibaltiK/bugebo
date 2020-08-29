@@ -52,7 +52,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try
 {   echo '<pre>' ;
     $dependency = new Container(__DIR__.'/../config/dependency.php');
-    $request = $dependency->add('Symfony\Component\HttpFoundation\Request', 'createFromGlobals');
+    $request = (new Request())->createFromGlobals();
+    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);
     $dependency->get('Exdrals\Excidia\Component\Router\Router');
     
     $router = new Router($request);
