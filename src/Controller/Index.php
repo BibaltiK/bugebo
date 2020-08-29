@@ -13,6 +13,7 @@ class Index
     {
         $this->response = $response;
     }
+    
     public function index(): Response
     {
         $this->response->setContent("<p>Hallo Welt!</p>");
