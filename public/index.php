@@ -50,7 +50,7 @@ ini_set ('display_errors', 'On');
 require_once __DIR__ . '/../vendor/autoload.php';
 
 try
-{   echo '<pre>' ;
+{   
     $dependency = new Container(__DIR__.'/../config/dependency.php');
     $request = (new Request())->createFromGlobals();
     $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);
