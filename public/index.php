@@ -54,11 +54,12 @@ try
     $dependency = new Container(__DIR__.'/../config/dependency.php');
     $request = (new Request())->createFromGlobals();
     $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);
-    $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');
-    
-    
+    $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');    
     $router->setRoutes(__DIR__.'/../config/routes.php');
     $route = $router->match();
+    $controller = $dependency->get($route['controller']);
+    $response = $controller->{$route['action']}();
+    $response->send();
 }
 catch (FileNotFoundException $e)
 {

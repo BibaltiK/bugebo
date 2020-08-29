@@ -53,7 +53,7 @@ class Container
         }
         if (!array_key_exists($class, $this->dependencies))
         {
-            throw new Exception(sprintf('Klasse <b>%s</b> im Container nicht gefunden',$class));
+            return $this->add($class);
         }
         $params = [];
         foreach ($this->dependencies[$class]['dependencies'] as $dependencies => $dependency)
