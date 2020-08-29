@@ -27,21 +27,23 @@ class Router
     }
 
     
-    public function setRoutes(string $routeConfigFile) 
+    public function setRoutes(string $routeConfigFile) : void
     {
         if (!$this->existsConfigFile($routeConfigFile))
             throw new FileNotFoundException (sprintf('File: %s not found.',$routeConfigFile));
         
+        //$this->routes = include $routeConfigFile;
+        
         $routes = include $routeConfigFile;
         
         if (!is_array($routes))
-            throw new UnexpectedContentException (sprintf('Routerconfig musst be a array'));
+            throw new UnexpectedContentException (sprintf('Routerconfig must be array or null'));
         
         $this->routes = $routes;
     }
 
     
-    public function match()
+    public function match() : array
     {               
         foreach ($this->routes as $route => $container) 
         {                        
