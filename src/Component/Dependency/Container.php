@@ -35,9 +35,14 @@ class Container
         $this->dependencies = $dependencies;   
     }
     
-    public function add(string $class, object $object)
+    public function add(string $class, ?string $action = null) : object
     {
-        $this->objects[$class] = $object;
+        $this->objects[$class] = new $class();
+        if ($action)
+        {
+            $this->objects[$class] = $this->objects[$class]->$action();
+        }
+        return $this->objects[$class];
     }
     
     public function get(string $class): ?object
