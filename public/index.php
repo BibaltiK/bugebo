@@ -40,6 +40,7 @@ use Exdrals\Excidia\Component\Exception\{FileNotFoundException,
                                          RouteNotFoundException,
                                          UnexpectedContentException
     };
+use \Exdrals\Excidia\Component\Dependency\Container;
 use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
 
@@ -49,14 +50,13 @@ ini_set ('display_errors', 'On');
 require_once __DIR__ . '/../vendor/autoload.php';
 
 try
-{    
+{   echo '<pre>' ;
+    $dependency = new Container(__DIR__.'/../config/dependency.php');
+    $dependency->get('Exdrals\Excidia\Component\Router\Router');
     $request = (new Request())->createFromGlobals();
     $router = new Router($request);
     $router->setRoutes(__DIR__.'/../config/routes.php');
     $route = $router->match();
-    
-    echo '<pre>';
-    print_r($route);
 }
 catch (FileNotFoundException $e)
 {
