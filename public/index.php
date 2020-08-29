@@ -54,9 +54,9 @@ try
     $dependency = new Container(__DIR__.'/../config/dependency.php');
     $request = (new Request())->createFromGlobals();
     $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);
-    $dependency->get('Exdrals\Excidia\Component\Router\Router');
+    $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');
     
-    $router = new Router($request);
+    
     $router->setRoutes(__DIR__.'/../config/routes.php');
     $route = $router->match();
 }

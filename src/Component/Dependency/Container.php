@@ -25,8 +25,6 @@ class Container
         if (!$this->existsConfigFile($configFile))
             throw new FileNotFoundException (sprintf('File: %s not found.',$configFile));
         
-        //$this->routes = include $routeConfigFile;
-        
         $dependencies = include $configFile;
         
         if (!is_array($dependencies))
@@ -63,9 +61,9 @@ class Container
             $params[] = $this->get($dependency);
         }        
         
-        $g = new $class($params);
-        print_r($g);
-        return null;
+        $object = new $class(...$params);
+        $this->addObject($class, $object);
+        return $object;
     }
 
     protected function existsConfigFile(string $configFile) : bool
