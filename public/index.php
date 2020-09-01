@@ -40,9 +40,10 @@ use Exdrals\Excidia\Component\Exception\{FileNotFoundException,
                                          RouteNotFoundException,
                                          UnexpectedContentException
     };
-use \Exdrals\Excidia\Component\Dependency\Container;
+use Exdrals\Excidia\Component\Dependency\Container;
 use Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response;
+use Exdrals\Bugebo\Entity\Account;
 
 error_reporting(E_ALL);
 ini_set ('display_errors', 'On');

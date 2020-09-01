@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Exdrals\Bugebo\Entities;
+namespace Exdrals\Bugebo\Entity;
 
 class Account
 {   
@@ -17,9 +17,16 @@ class Account
     
     protected \DateTime $registrationTime;
     
-    protected ?\DateTime $lastActiv;
+    protected \DateTime $lastActiv;
     
-       
+    
+    public function __construct() 
+    {
+        $this->registrationTime = new \DateTime();
+        $this->lastActiv = new \DateTime();
+    }
+
+
     public function getUuid() : string
     {
         return $this->uuid;

@@ -15,8 +15,11 @@ class Index
     }
     
     public function index(): Response
-    {
-        $this->response->setContent("<p>Hallo Welt!</p>");
+    {                               
+        ob_start();
+        include __DIR__.'/../../templates/index.php';
+        $response = ob_get_clean();
+        $this->response->setContent($response);
         
         return $this->response;
     }
