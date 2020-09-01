@@ -5,5 +5,8 @@ return [
     ],
     'Exdrals\Bugebo\Controller\Index' => [
         'dependencies' => ['Symfony\Component\HttpFoundation\Response']
+    ],
+        'Exdrals\Bugebo\Controller\Account' => [
+        'dependencies' => ['Symfony\Component\HttpFoundation\Response']
     ]
 ];

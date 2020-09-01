@@ -32,8 +32,6 @@ class Router
         if (!$this->existsConfigFile($routeConfigFile))
             throw new FileNotFoundException (sprintf('File: %s not found.',$routeConfigFile));
         
-        //$this->routes = include $routeConfigFile;
-        
         $routes = include $routeConfigFile;
         
         if (!is_array($routes))
@@ -59,7 +57,6 @@ class Router
             {
                 $routeInfo['params'] = $matches[array_key_last($matches)];
             }
-                                
             return $routeInfo;
         }    
           

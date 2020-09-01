@@ -1,11 +1,24 @@
 <?php
 return [
-         'index' => [
-             'path' => '/',
-             'controller' => 'Exdrals\Bugebo\Controller\Index',
-             'action' => 'index',
-             'method' => 'GET'
+            'index' => [
+                'path' => '/',
+                'controller' => 'Exdrals\Bugebo\Controller\Index',
+                'action' => 'index',
+                'method' => 'GET'
          ],
+            'login' => [
+                'path' => '/login',
+                'controller' => 'Exdrals\Bugebo\Controller\Account',
+                'action' => 'login',
+                'method' => 'GET'
+            ],
+    
+           'account' => [
+                 'path' => '/account',
+                 'controller' => 'Exdrals\Bugebo\Controller\Account',
+                 'action' => 'show',
+                 'method' => 'GET'
+             ],
     
         'foo_route' => [
              'path' => '/foo',

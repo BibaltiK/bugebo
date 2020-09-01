@@ -62,8 +62,7 @@ class Container
         }        
         
         $object = new $class(...$params);
-        $this->addObject($class, $object);
-        return $object;
+        return $this->addObject($class, $object);
     }
 
     protected function existsConfigFile(string $configFile) : bool

@@ -63,6 +63,7 @@ try
 }
 catch (FileNotFoundException $e)
 {
+    echo '<pre>';
     echo $e->getMessage();
 }
 catch (RouteNotFoundException $e)
@@ -71,9 +72,11 @@ catch (RouteNotFoundException $e)
 }
 catch (UnexpectedContentException $e)
 {
+    echo '<pre>';
     echo $e->getMessage();
 }
 catch (\Exception $e)
 {
+    echo '<pre>';
     echo $e->getMessage();
 }
