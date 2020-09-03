@@ -22,7 +22,8 @@
         "symfony/routing": "^5.1",
         "symfony/yaml": "^5.1",
         "symfony/config": "^5.1",
-        "twbs/bootstrap": "^4.5"
+        "twbs/bootstrap": "^4.5",
+        "components/font-awesome": "^5.14"
     },    
     "autoload-dev":{
     "psr-4":{

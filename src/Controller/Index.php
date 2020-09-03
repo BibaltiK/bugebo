@@ -17,7 +17,7 @@ class Index
     public function index(): Response
     {                               
         ob_start();
-        include __DIR__.'/../../templates/index.php';
+        include __DIR__.'/../../templates/index.phtml';
         $response = ob_get_clean();
         $this->response->setContent($response);
         

@@ -1,0 +1,21 @@
+body {
+    background-color: whitesmoke;
+}
+
+.navbar {
+    font-size: 16px;
+    color: lightgray;
+    padding: 0 0 ;
+}
+
+.bg-dark {
+    background-color: lightslategray !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+main {
+    min-height: 500px;
+}
