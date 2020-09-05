@@ -4,22 +4,14 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Exdrals\Bugebo\Controller\AbstractController;
 
-class Index
+class Index extends AbstractController
 {
-    protected Response $response;
-    
-    public function __construct(Response $response)
-    {
-        $this->response = $response;
-    }
     
     public function index(): Response
-    {                               
-        ob_start();
-        include __DIR__.'/../../templates/index.phtml';
-        $response = ob_get_clean();
-        $this->response->setContent($response);
+    {                                       
+        $this->response->setContent('$response');
         
         return $this->response;
     }

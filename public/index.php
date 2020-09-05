@@ -35,15 +35,13 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo;
 
-use Exdrals\Excidia\Component\Router\Router;
 use Exdrals\Excidia\Component\Exception\{FileNotFoundException, 
                                          RouteNotFoundException,
                                          UnexpectedContentException
     };
 use Exdrals\Excidia\Component\Dependency\Container;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Exdrals\Bugebo\Entity\Account;
+use Exdrals\Excidia\Component\Template\Template;
 
 error_reporting(E_ALL);
 ini_set ('display_errors', 'On');
@@ -58,9 +56,22 @@ try
     $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');    
     $router->setRoutes(__DIR__.'/../config/routes.php');
     $route = $router->match();
-    $controller = $dependency->get($route['controller']);
-    $response = $controller->{$route['action']}();
+    
+    $template = new Template;
+    $dependency->addObject('Exdrals\Excidia\Component\Template\Template', $template);
+    
+    
+    $base = $dependency->get('Exdrals\Bugebo\Controller\PageController');
+    $base->process();    
+    
+    $controller = $dependency->get($route['controller']);    
+    $response = call_user_func_array(array($controller, $route['action']), []);
+    
+    $template->assign('content', $response->getContent());  
+    
+    $response->setContent($template->render());
     $response->send();
+    
 }
 catch (FileNotFoundException $e)
 {
@@ -69,6 +80,7 @@ catch (FileNotFoundException $e)
 }
 catch (RouteNotFoundException $e)
 {
+    echo '<pre>';
     echo $e->getMessage();
 }
 catch (UnexpectedContentException $e)

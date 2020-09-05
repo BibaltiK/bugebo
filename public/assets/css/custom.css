@@ -15,7 +15,3 @@ body {
 .navbar-dark .navbar-nav .nav-link {
     color: white;
 }
-
-main {
-    min-height: 500px;
-}

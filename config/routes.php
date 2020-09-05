@@ -5,7 +5,8 @@ return [
                 'controller' => 'Exdrals\Bugebo\Controller\Index',
                 'action' => 'index',
                 'method' => 'GET'
-         ],
+            ],
+    
             'login' => [
                 'path' => '/login',
                 'controller' => 'Exdrals\Bugebo\Controller\Account',
