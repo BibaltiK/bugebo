@@ -6,3 +6,4 @@ composer.lock
 /src/Configs/pdoConfig.php
 /src/Configs/ProjectDefines.php
 *.csv
+.vscode/

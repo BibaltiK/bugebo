@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Template;
-
+use Exdrals\Excidia\Component\Dependency\Container;
 
 class Template {
     
@@ -10,30 +10,38 @@ class Template {
     
     protected string $layout = 'default';
     
-    protected string $indexFile = 'index';
+    protected string $templateFile = 'index';
     
     protected string $templateExtension = '.phtml';
     
-    protected string $templateNamespace = 'Exdrals\Bugebo\Template\\';
-
+    protected string $templateNamespace = 'Exdrals\Bugebo\Controller';
 
     protected ?array $data = [];
-            
-    public function __construct() 
+    
+    protected Container $dependency;
+
+    
+    public function __construct(Container $dependency) 
     {
         $this->data = [];
+        $this->dependency = $dependency;
     }
     
-    public function setIndexFile(string $indexFile)
+    public function setTemplateFile(string $templateFile)
     {
-        $this->indexFile = $indexFile;
+        $this->templateFile = $templateFile;
     }
 
-    public function add(string $class, string $method = 'process', string $section = 'index')
+    public function add(string $class, string $method = 'process')
     {        
-        $class = $this->templateNamespace.$class;
-        $object = new $class;
-        $this->data[$section] = call_user_func_array(array($object, $method), []);                
+        $class = $this->templateNamespace.'\\'.$class;        
+        $object = $this->dependency->get($class);
+        return call_user_func_array(array($object, $method), []);                
+    }
+    
+    public function insert(string $templateFile)
+    {
+        return $this->render($templateFile);
     }
     
     public function assign(string $key, $value)
@@ -42,11 +50,12 @@ class Template {
     }
 
 
-    public function render()
+    public function render(?string $templateFile = null)
     {
+        $templateFile = $templateFile ?? $this->templateFile;
         extract($this->data);
         ob_start();
-        include $this->templatePath.'layout/'.$this->layout.'/'.$this->indexFile.$this->templateExtension;
+        include $this->templatePath.'layout/'.$this->layout.'/'.$templateFile.$this->templateExtension;
         return ob_get_clean();
     }
 }

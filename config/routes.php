@@ -7,10 +7,22 @@ return [
                 'method' => 'GET'
             ],
     
-            'login' => [
+            'show_login' => [
                 'path' => '/login',
                 'controller' => 'Exdrals\Bugebo\Controller\Account',
-                'action' => 'login',
+                'action' => 'showLogin',
+                'method' => 'GET'
+            ],
+            'check_login' => [
+                'path' => '/login',
+                'controller' => 'Exdrals\Bugebo\Controller\Account',
+                'action' => 'checkLogin',
+                'method' => 'POST'
+            ],
+            'logout' => [
+                'path' => '/logout',
+                'controller' => 'Exdrals\Bugebo\Controller\Account',
+                'action' => 'logout',
                 'method' => 'GET'
             ],
     

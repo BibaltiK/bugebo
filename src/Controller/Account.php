@@ -3,21 +3,41 @@
 declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Exdrals\Bugebo\Controller\AbstractController;
+use Exdrals\Excidia\Component\Template\Template;
+use Exdrals\Bugebo\Controller\Auth;
 
 class Account extends AbstractController
-{
-    public function login(): Response
-    {
-        $this->template->setIndexFile('error');
-        $this->response->setContent('Account-Login');
-        return $this->response;
+{       
+    
+    protected Auth $auth;
+    
+    public function __construct(Template $template, Auth $auth) {
+        $this->auth =$auth;
+        parent::__construct($template);
     }
     
-    public function show(): Response
+    public function login(): ?string
+    {        
+        return 'Account-Login';
+    }
+    
+    public function showLogin(): ?string
+    {        
+        return 'Account';
+    }
+    
+    public function checkLogin(): ?string
+    {        
+        $this->auth->login();
+        header('Location: /');
+        return 'Du wollen Log-In?<br> Welcome!';
+    }
+    
+    public function logout()
     {
-        $this->response->setContent('Account');
-        return $this->response;
+        $this->auth->logout();
+        header('Location: /');
+        return 'bye bye';
     }
 }

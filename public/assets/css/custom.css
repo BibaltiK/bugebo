@@ -3,7 +3,7 @@ body {
 }
 
 .navbar {
-    font-size: 16px;
+    font-size: 1.0em;
     color: lightgray;
     padding: 0 0 ;
 }
@@ -14,4 +14,8 @@ body {
 
 .navbar-dark .navbar-nav .nav-link {
     color: white;
+}
+
+#remember-me-label {
+    font-size: 0.7em;
 }

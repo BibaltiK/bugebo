@@ -42,8 +42,9 @@ use Exdrals\Excidia\Component\Exception\{FileNotFoundException,
 use Exdrals\Excidia\Component\Dependency\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Exdrals\Excidia\Component\Template\Template;
+use Exdrals\Excidia\Component\Http\Session;
 
-error_reporting(E_ALL);
+error_reporting(-1);
 ini_set ('display_errors', 'On');
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -51,27 +52,25 @@ require_once __DIR__ . '/../vendor/autoload.php';
 try
 {   
     $dependency = new Container(__DIR__.'/../config/dependency.php');
-    $request = (new Request())->createFromGlobals();
-    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);
+    $dependency->addObject('Exdrals\Excidia\Component\Dependency\Container', $dependency);
+    
+    $session = $dependency->get('Exdrals\Excidia\Component\Http\Session');
+    
+    $request = (new Request())->createFromGlobals();    
+    
+    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);    
     $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');    
     $router->setRoutes(__DIR__.'/../config/routes.php');
     $route = $router->match();
-    
-    $template = new Template;
-    $dependency->addObject('Exdrals\Excidia\Component\Template\Template', $template);
-    
-    
-    $base = $dependency->get('Exdrals\Bugebo\Controller\PageController');
-    $base->process();    
-    
+        
     $controller = $dependency->get($route['controller']);    
     $response = call_user_func_array(array($controller, $route['action']), []);
     
-    $template->assign('content', $response->getContent());  
+    $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');
+    $template->assign('home', 'Startseite');
+    $template->assign('content', $response);      
     
-    $response->setContent($template->render());
-    $response->send();
-    
+    echo $template->render();  
 }
 catch (FileNotFoundException $e)
 {

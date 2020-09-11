@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>    
-    <meta charset="UTF-8">    
-    <meta name="viewport" content="width=device-width, initial-scale=1">  
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/fontawesome.min.css">    
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/solid.min.css">    
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/custom.css">
-    <title><?= $site_title ?></title>
-</head>
-<body>   
-    <?= $navigation_top ?>       
-    <main>
-        <?= $content ?>
-    </main>
-    <footer class="page-footer font-small special-color-dark">
-        <div class="footer-copyright text-center py-3"><a href="https://opensource.org/licenses/MIT">MIT License</a> - 2020 -
-            <a href="http://bugebo.exdrals.de"> bugebo.exdrals.de</a>
-        </div>
-    </footer>
+    <head>    
 
-    <script src="assets/js/jquery-3.5.1.min.js"></script>
-<!--    <script src="assets/js/popper.min.js"></script>
--->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>    
-</body>
+        <?= $this->insert('partials/head'); ?>
+
+    </head>
+
+    <body>   
+
+        <?= $this->add('Navigation','top'); ?>       
+
+        <main>
+            <?= $content ?>
+        </main>
+
+        <?= $this->insert('partials/footer'); ?>
+
+        <?= $this->insert('partials/scripts'); ?>
+
+    </body>
+
 </html>
