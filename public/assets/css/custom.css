@@ -16,6 +16,14 @@ body {
     color: white;
 }
 
+.btn-sm {
+    font-size: 0.7em;
+}
+
+.text-sm {
+    font-size: 0.7em;
+}
+
 #remember-me-label {
     font-size: 0.7em;
 }
