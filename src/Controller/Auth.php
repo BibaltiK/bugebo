@@ -17,16 +17,16 @@ class Auth {
     
     public function login() 
     {
-        $this->session->set('login', true);
+        $this->session->set('useruuid', 'ea49ab67-14e3-4a45-8691-4a6adcd79477');        
     }
     
-    public function isLoggin()
+    public function isLoggedin()
     {
-        return $this->session->get('login');
+        return $this->session->get('useruuid');
     }
     
     public function logout() 
     {
-        $this->session->unsetSession('login');
+        $this->session->unsetSession('useruuid');
     }
 }

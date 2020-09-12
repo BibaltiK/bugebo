@@ -23,7 +23,7 @@ class Navigation extends AbstractController{
     
     public function switchLoginStatus() : ?string
     {
-        if (!$this->auth->isLoggin())
+        if (!$this->auth->isLoggedin())
         {            
             return $this->template->render('partials/navigation_top_loggedout');
         }

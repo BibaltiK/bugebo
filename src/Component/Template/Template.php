@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Template;
 use Exdrals\Excidia\Component\Dependency\Container;
+use Exdrals\Excidia\Component\Exception\FileNotFoundException;
 
 class Template {
     
@@ -48,14 +49,24 @@ class Template {
     {
         $this->data[$key] = $value;
     }
+    
+    public function getAssign(string $key)
+    {
+        return $this->data[$key] ?? false;
+    }
 
 
     public function render(?string $templateFile = null)
     {
         $templateFile = $templateFile ?? $this->templateFile;
+        $templateFile = $this->templatePath.'layout/'.$this->layout.'/'.$templateFile.$this->templateExtension;
+        if (!is_readable($templateFile))
+        {
+            throw new FileNotFoundException(sprintf('Templatefile <b>%s</b> not found or readable!',$templateFile));
+        }
         extract($this->data);
-        ob_start();
-        include $this->templatePath.'layout/'.$this->layout.'/'.$templateFile.$this->templateExtension;
+        ob_start();        
+        include $templateFile;
         return ob_get_clean();
     }
 }

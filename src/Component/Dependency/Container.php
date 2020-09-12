@@ -25,7 +25,7 @@ class Container
         if (!$this->existsConfigFile($configFile))
             throw new FileNotFoundException (sprintf('File: %s not found.',$configFile));
         
-        $dependencies = include $configFile;
+        $dependencies = parse_ini_file($configFile, true, INI_SCANNER_TYPED);
         
         if (!is_array($dependencies))
             throw new UnexpectedContentException (sprintf('Dependency-Config must be array or null'));
@@ -56,7 +56,7 @@ class Container
             return $this->add($class);
         }
         $params = [];
-        foreach ($this->dependencies[$class]['dependencies'] as $dependencies => $dependency)
+        foreach ($this->dependencies[$class] as $dependencies => $dependency)
         {
             $params[] = $this->get($dependency);
         }        

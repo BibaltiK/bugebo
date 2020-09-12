@@ -10,7 +10,6 @@ abstract class AbstractController {
     
     public function __construct(Template $template)
     {        
-        $this->template = $template;
-        $this->template->assign('site_title', 'Bugebo');
+        $this->template = $template;        
     }
 }

@@ -32,7 +32,7 @@ class Router
         if (!$this->existsConfigFile($routeConfigFile))
             throw new FileNotFoundException (sprintf('File: %s not found.',$routeConfigFile));
         
-        $routes = include $routeConfigFile;
+        $routes = parse_ini_file($routeConfigFile, true, INI_SCANNER_TYPED);
         
         if (!is_array($routes))
             throw new UnexpectedContentException (sprintf('Routerconfig must be array or null'));

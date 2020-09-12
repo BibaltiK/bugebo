@@ -51,7 +51,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 try
 {   
-    $dependency = new Container(__DIR__.'/../config/dependency.php');
+    $dependency = new Container(__DIR__.'/../config/dependency.ini');
     $dependency->addObject('Exdrals\Excidia\Component\Dependency\Container', $dependency);
     
     $session = $dependency->get('Exdrals\Excidia\Component\Http\Session');
@@ -60,15 +60,27 @@ try
     
     $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);    
     $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');    
-    $router->setRoutes(__DIR__.'/../config/routes.php');
+    $router->setRoutes(__DIR__.'/../config/routes.ini');
     $route = $router->match();
         
     $controller = $dependency->get($route['controller']);    
-    $response = call_user_func_array(array($controller, $route['action']), []);
+    $content = call_user_func_array(array($controller, $route['action']), []);
     
-    $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');
-    $template->assign('home', 'Startseite');
-    $template->assign('content', $response);      
+    $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');    
+    
+    $auth = $dependency->get('Exdrals\Bugebo\Controller\Auth');
+
+    $template->assign('siteTitle', 'Bugebo');
+    $template->assign('username', 'Gast');
+    if ($auth->isLoggedin())
+    {
+        $template->assign('username', 'BibaltiK');
+    }
+    
+    $template->assign('home', 'Startseite');    
+    $template->assign('content', $content); 
+    
+
     
     echo $template->render();  
 }
