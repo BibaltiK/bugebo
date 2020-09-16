@@ -6,27 +6,29 @@ namespace Exdrals\Excidia\Component\Http;
 
 
 class Session 
-{
+{    
+    protected array $sessionData;
     
     public function __construct() 
     {
-        $this->sessionData = [];
         $this->init();
+        $this->sessionData = $_SESSION;
     }
     
     public function __destruct() 
     {
+        $_SESSION = $this->sessionData;
         session_write_close();
     }
 
     public function set(string $key, $value) 
     {
-        $_SESSION[$key] = $value;
+        $this->sessionData[$key] = $value;
     }
     
     public function get(string $key)
     {
-        return $_SESSION[$key] ?? null;
+        return $this->sessionData[$key] ?? null;
     }
     
     public function unsetSession(string $key)
@@ -34,8 +36,13 @@ class Session
         if ($this->get($key))
         {
             $this->set($key, null);
-            unset ($_SESSION[$key]);
+            unset ($this->sessionData[$key]);
         }
+    }
+    
+    public function cleanSession()
+    {
+        $this->sessionData = [];
     }
 
     protected function init()

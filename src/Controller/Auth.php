@@ -5,28 +5,39 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo\Controller;
 
 use Exdrals\Excidia\Component\Http\Session;
+use Exdrals\Bugebo\Controller\Account as AccountController;
+use Exdrals\Bugebo\Entity\Account as AccountEntity;
 
 class Auth {
 
-    protected Session $session;
+    protected Session $session;    
     
-    public function __construct(Session $session) 
+    protected AccountController $accountController;
+
+
+    public function __construct(Session $session, AccountController $accountController) 
     {
         $this->session = $session;
+        $this->accountController = $accountController;
     }
     
-    public function login() 
+    public function login(AccountEntity $loginAccount) 
     {
-        $this->session->set('useruuid', 'ea49ab67-14e3-4a45-8691-4a6adcd79477');        
+        $toFindAccount = $this->accountController->findeByName($loginAccount->getName());
+        if (password_verify((string)$loginAccount->getPassword(), $toFindAccount->getPasswordHash()))
+        {
+            $this->session->set('useruuid', $toFindAccount->getUuid()); 
+            $this->session->set('username', $toFindAccount->getName());
+        }        
     }
     
-    public function isLoggedin()
+    public function isLoggedin(): bool
     {
-        return $this->session->get('useruuid');
+        return $this->session->get('useruuid') ? true : false;
     }
     
     public function logout() 
     {
-        $this->session->unsetSession('useruuid');
+        $this->session->cleanSession();
     }
 }

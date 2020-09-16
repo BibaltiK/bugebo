@@ -3,7 +3,7 @@
 composer.phar
 composer.lock
 /vendor/
-/src/Configs/pdoConfig.php
-/src/Configs/ProjectDefines.php
+/config/database.ini
+/config/config.ini
 *.csv
 .vscode/

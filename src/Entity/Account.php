@@ -13,7 +13,9 @@ class Account
     
     protected ?string $email = null;
     
-    protected string $passwordHash  = '';
+    protected ?string $password = null;
+
+    protected string $passwordHash  = '$2y$10$kbUGUT68WAraS/fa5JNe/OqTlkHNOalgNU5ggn9qghggOgsxDKScW';
     
     protected \DateTime $registrationTime;
     
@@ -60,6 +62,17 @@ class Account
         return $this;
     }
 
+    public function getPassword() : ?string
+    {
+        return $this->password;
+    }
+    
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+        $this->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
+    }
+    
     public function getPasswordHash() : string
     {
         return $this->passwordHash;

@@ -3,41 +3,57 @@
 declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Controller;
-use Exdrals\Bugebo\Controller\AbstractController;
-use Exdrals\Excidia\Component\Template\Template;
-use Exdrals\Bugebo\Controller\Auth;
+use Exdrals\Bugebo\Entity\Account as AccountEntity;
+use Exdrals\Excidia\Component\Repository\DatabasePDO;
 
-class Account extends AbstractController
-{       
+
+class Account 
+{
+
+    protected DatabasePDO $database;
     
-    protected Auth $auth;
-    
-    public function __construct(Template $template, Auth $auth) {
-        $this->auth =$auth;
-        parent::__construct($template);
-    }
-    
-    public function login(): ?string
-    {        
-        return 'Account-Login';
-    }
-    
-    public function showLogin(): ?string
-    {        
-        return 'Account';
-    }
-    
-    public function checkLogin(): ?string
-    {        
-        $this->auth->login();
-        header('Location: /');
-        return 'Du wollen Log-In?<br> Welcome!';
-    }
-    
-    public function logout()
+    public function __construct(DatabasePDO $database) 
     {
-        $this->auth->logout();
-        header('Location: /');
-        return 'bye bye';
+        $this->database = $database;
+    }
+    
+    public function createOrUpdate(Account $user)
+    {
+        
+    }
+    
+    public function delete(Account $user) 
+    {
+        
+    }
+    
+    public function findeByUUID(string $UUID) : ?AccountEntity
+    {
+        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `uuid`=:uuid';
+        $stmt = $this->database->prepare($sql);
+        $stmt->execute([':uuid' => $UUID]);
+        $result = $stmt->fetch();
+        $account = new AccountEntity;
+        $account->setName($result['name']);
+        $account->setEmail($result['email']);
+        $account->setPasswordHash($result['passwordHash']);
+        $account->setRegistrationTime(new \DateTime($result['registrationTime']));
+        $account->setLastActiv(new \DateTime($result['lastActiv']));        
+        return $account;
+    }
+    
+    public function findeByName(string $name) : ?AccountEntity
+    {
+        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `name`=:name';
+        $stmt = $this->database->prepare($sql);
+        $stmt->execute([':name' => $name]);
+        $result = $stmt->fetch();
+        $account = new AccountEntity;
+        $account->setName($result['name']);
+        $account->setEmail($result['email']);
+        $account->setPasswordHash($result['passwordHash']);
+        $account->setRegistrationTime(new \DateTime($result['registrationTime']));
+        $account->setLastActiv(new \DateTime($result['lastActiv']));        
+        return $account;
     }
 }

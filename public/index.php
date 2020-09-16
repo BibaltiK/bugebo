@@ -33,74 +33,20 @@
  */
 declare(strict_types=1);
 
-namespace Exdrals\Bugebo;
-
-use Exdrals\Excidia\Component\Exception\{FileNotFoundException, 
-                                         RouteNotFoundException,
-                                         UnexpectedContentException
-    };
-use Exdrals\Excidia\Component\Dependency\Container;
-use Symfony\Component\HttpFoundation\Request;
-use Exdrals\Excidia\Component\Template\Template;
-use Exdrals\Excidia\Component\Http\Session;
-
 error_reporting(-1);
 ini_set ('display_errors', 'On');
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../src/bootstrap.php';
 
-try
-{   
-    $dependency = new Container(__DIR__.'/../config/dependency.ini');
-    $dependency->addObject('Exdrals\Excidia\Component\Dependency\Container', $dependency);
-    
-    $session = $dependency->get('Exdrals\Excidia\Component\Http\Session');
-    
-    $request = (new Request())->createFromGlobals();    
-    
-    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);    
-    $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');    
-    $router->setRoutes(__DIR__.'/../config/routes.ini');
-    $route = $router->match();
-        
-    $controller = $dependency->get($route['controller']);    
-    $content = call_user_func_array(array($controller, $route['action']), []);
-    
-    $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');    
-    
-    $auth = $dependency->get('Exdrals\Bugebo\Controller\Auth');
 
-    $template->assign('siteTitle', 'Bugebo');
-    $template->assign('username', 'Gast');
-    if ($auth->isLoggedin())
-    {
-        $template->assign('username', 'BibaltiK');
-    }
-    
-    $template->assign('home', 'Startseite');    
-    $template->assign('content', $content); 
-    
+$template->assign('siteTitle', 'Bugebo');
+$template->assign('username', 'Gast');
+if ($auth->isLoggedin())
+{    
+    $template->assign('username', $session->get('username'));
+}
+$template->assign('home', 'Startseite');    
+$template->assign('content', $content); 
 
-    
-    echo $template->render();  
-}
-catch (FileNotFoundException $e)
-{
-    echo '<pre>';
-    echo $e->getMessage();
-}
-catch (RouteNotFoundException $e)
-{
-    echo '<pre>';
-    echo $e->getMessage();
-}
-catch (UnexpectedContentException $e)
-{
-    echo '<pre>';
-    echo $e->getMessage();
-}
-catch (\Exception $e)
-{
-    echo '<pre>';
-    echo $e->getMessage();
-}
+echo $template->render();  

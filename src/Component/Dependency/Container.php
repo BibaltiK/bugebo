@@ -47,10 +47,11 @@ class Container
     
     public function get(string $class): ?object
     {        
+        
         if (array_key_exists($class, $this->objects))
         {
             return $this->objects[$class];
-        }
+        }        
         if (!array_key_exists($class, $this->dependencies))
         {
             return $this->add($class);
