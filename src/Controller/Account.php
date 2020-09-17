@@ -29,25 +29,25 @@ class Account
     
     public function findeByUUID(string $UUID) : ?AccountEntity
     {
-        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `uuid`=:uuid';
-        $stmt = $this->database->prepare($sql);
-        $stmt->execute([':uuid' => $UUID]);
-        $result = $stmt->fetch();
-        $account = new AccountEntity;
-        $account->setName($result['name']);
-        $account->setEmail($result['email']);
-        $account->setPasswordHash($result['passwordHash']);
-        $account->setRegistrationTime(new \DateTime($result['registrationTime']));
-        $account->setLastActiv(new \DateTime($result['lastActiv']));        
-        return $account;
+        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `uuid`=:value';     
+        return $this->findBy($sql, $UUID);
     }
     
     public function findeByName(string $name) : ?AccountEntity
-    {
-        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `name`=:name';
-        $stmt = $this->database->prepare($sql);
-        $stmt->execute([':name' => $name]);
-        $result = $stmt->fetch();
+    {        
+        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `name`=:value';     
+        return $this->findBy($sql, $name);        
+    }
+    
+    protected function findBy(string $sql, string $value): ?AccountEntity
+    {        
+        $stmt = $this->database->prepare($sql);        
+        $stmt->execute([':value' => $value]);
+        $result = $stmt->fetch();        
+        if (!$result)
+        {
+            return null;
+        }
         $account = new AccountEntity;
         $account->setName($result['name']);
         $account->setEmail($result['email']);
@@ -55,5 +55,5 @@ class Account
         $account->setRegistrationTime(new \DateTime($result['registrationTime']));
         $account->setLastActiv(new \DateTime($result['lastActiv']));        
         return $account;
-    }
+    }    
 }

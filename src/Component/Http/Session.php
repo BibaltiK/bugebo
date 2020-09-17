@@ -9,10 +9,11 @@ class Session
 {    
     protected array $sessionData;
     
+
     public function __construct() 
     {
         $this->init();
-        $this->sessionData = $_SESSION;
+        $this->sessionData = $_SESSION;        
     }
     
     public function __destruct() 
@@ -43,6 +44,28 @@ class Session
     public function cleanSession()
     {
         $this->sessionData = [];
+    }
+    
+    public function addFlashMsg(string $msg) 
+    {
+        $this->sessionData['flashMsg'][] = $msg;
+    }
+    
+    public function getFlashMsg(): ?array
+    {
+        $flashMsg = $this->sessionData['flashMsg'];
+        $this->cleanFlashMsg();
+        return $flashMsg;
+    }
+    
+    public function hasFlashMsg():bool
+    {
+        return (bool) count($this->sessionData['flashMsg']);
+    }
+    
+    public function cleanFlashMsg()
+    {
+        $this->sessionData['flashMsg'] = [];
     }
 
     protected function init()

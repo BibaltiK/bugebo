@@ -33,16 +33,22 @@
  */
 declare(strict_types=1);
 
-error_reporting(-1);
-ini_set ('display_errors', 'On');
-
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__.'/../src/bootstrap.php';
 
+error_reporting(0);
+
+if (defined('DEVELOPE'))
+{
+    error_reporting(-1);
+    ini_set ('display_errors', 'On');
+}
 
 $template->assign('siteTitle', 'Bugebo');
-$template->assign('username', $session->get('username') ?? 'Gast');
+$template->assign('username', $template->escape($session->get('username') ?? 'Gast'));
 $template->assign('home', 'Startseite');    
 $template->assign('content', $content); 
 
+$template->assign('hasFlashMessages',$session->hasFlashMsg());
+$template->assign('flashMessages',$session->getFlashMsg());
 echo $template->render();  

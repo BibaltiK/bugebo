@@ -19,10 +19,16 @@ try
     $dependency->addObject('Exdrals\Excidia\Component\Repository\DatabasePDO', new DatabasePDO(__DIR__.'/../config/database.ini'));
     
     $session = $dependency->get('Exdrals\Excidia\Component\Http\Session');
+        
     
     $request = (new Request())->createFromGlobals();            
-    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);    
     
+    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);   
+    
+    if ((bool)mb_substr_count($request->getHttpHost(), 'local'))
+    {
+        define('DEVELOPE', 'true');        
+    }
 
     $referer = $request->headers->get('referer');        
     if (!\is_string($referer) || !$referer || !(bool)mb_substr_count($referer, 'bugebo')) 

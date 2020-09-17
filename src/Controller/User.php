@@ -41,10 +41,20 @@ class User extends AbstractController
     public function checkLogin()
     {        
         $user = new Account;
-        $user->setName($this->request->request->get('username'));
-        $user->setPassword($this->request->request->get('password'));
+        $username = $this->request->request->get('username');
+        $password = $this->request->request->get('password');
+        if ((!isset($username) || empty($username)) || (!isset($password) || empty($password)))
+        {
+            $this->session->addFlashMsg('Benutzername / Passwort müssen ausgefüllt werden');
+            
+            header('Location: '.$this->session->get('redirect'));        
+            exit();
+        }
+        $user->setName($username);
+        $user->setPassword($password);
         $this->auth->login($user);
-        header('Location: '.$this->session->get('redirect'));        
+        header('Location: '.$this->session->get('redirect')); 
+        exit();
     }
     
     public function logout()

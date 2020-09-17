@@ -21,14 +21,23 @@ class Auth {
         $this->accountController = $accountController;
     }
     
-    public function login(AccountEntity $loginAccount) 
+    public function login(AccountEntity $loginAccount): bool
     {
         $toFindAccount = $this->accountController->findeByName($loginAccount->getName());
+        if (!$toFindAccount)
+        {            
+            $this->session->addFlashMsg('Fehler bei Benutzer / Passwort kombination.');
+            return false;
+        }
+        
         if (password_verify((string)$loginAccount->getPassword(), $toFindAccount->getPasswordHash()))
         {
             $this->session->set('useruuid', $toFindAccount->getUuid()); 
             $this->session->set('username', $toFindAccount->getName());
+            return true;
         }        
+        $this->session->addFlashMsg('Fehler bei Benutzer / Passwort kombination.');
+        return false;
     }
     
     public function isLoggedin(): bool

@@ -55,6 +55,10 @@ class Template {
         return $this->data[$key] ?? false;
     }
 
+    public function escape(string $value): string
+    {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
 
     public function render(?string $templateFile = null)
     {
