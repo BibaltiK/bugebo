@@ -56,7 +56,10 @@ class User extends AbstractController
         }
         $user->setName($username);
         $user->setPassword($password);
-        $this->auth->login($user);
+        if ($this->auth->login($user))
+        {
+            $this->flashMessage->add('Anmeldung erfolgreich.', 'success');            
+        }
         header('Location: '.$this->session->get('redirect')); 
         exit();
     }
