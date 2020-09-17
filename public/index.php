@@ -44,11 +44,14 @@ if (defined('DEVELOPE'))
     ini_set ('display_errors', 'On');
 }
 
+$flashMessage = $dependency->get('Exdrals\Excidia\Component\Feature\FlashMessage');
 $template->assign('siteTitle', 'Bugebo');
 $template->assign('username', $template->escape($session->get('username') ?? 'Gast'));
 $template->assign('home', 'Startseite');    
 $template->assign('content', $content); 
+$template->assign('hasFlashMessages',$flashMessage->hasFlashMessage());
 
-$template->assign('hasFlashMessages',$session->hasFlashMsg());
-$template->assign('flashMessages',$session->getFlashMsg());
+$template->assign('flashMessages',$flashMessage->get());
+
+
 echo $template->render();  

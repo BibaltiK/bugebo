@@ -45,7 +45,8 @@ try
     
     $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');    
     
-    $auth = $dependency->get('Exdrals\Bugebo\Controller\Auth');
+    $auth = $dependency->get('Exdrals\Bugebo\Controller\Auth');    
+    
 }
 catch (FileNotFoundException $e)
 {

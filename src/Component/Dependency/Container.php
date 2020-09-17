@@ -35,7 +35,7 @@ class Container
     
     public function add(string $class) : object
     {
-        $this->objects[$class] = new $class();
+        $this->objects[$class] = new $class();        
         return $this->objects[$class];
     }
     

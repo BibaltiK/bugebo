@@ -1,0 +1,26 @@
+<?php if($hasFlashMessages):?>
+
+    <?php foreach($flashMessages as $level => $messages):?>
+        <?php if($level == 'error'):?>
+            <div class="alert alert-danger text-center" role="alert">
+                <?php foreach($flashMessages[$level] as $message):?>
+                    <p><?= $message?></p>
+                <?php endforeach?>
+            </div>
+        <?php endif;?>
+        <?php if($level == 'info'):?>
+            <div class="alert alert-info text-center" role="alert">
+                <?php foreach($flashMessages[$level] as $message):?>
+                    <p><?= $message?></p>
+                <?php endforeach?>
+            </div>
+        <?php endif;?>
+        <?php if($level == 'success'):?>
+            <div class="alert alert-success text-center" role="alert">
+                <?php foreach($flashMessages[$level] as $message):?>
+                    <p><?= $message?></p>
+                <?php endforeach?>
+            </div>
+        <?php endif;?>
+    <?php endforeach?>
+<?php endif;?>

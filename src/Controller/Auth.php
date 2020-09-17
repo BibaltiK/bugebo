@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo\Controller;
 
 use Exdrals\Excidia\Component\Http\Session;
+use Exdrals\Excidia\Component\Feature\FlashMessage;
 use Exdrals\Bugebo\Controller\Account as AccountController;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 
@@ -13,12 +14,15 @@ class Auth {
     protected Session $session;    
     
     protected AccountController $accountController;
+    
+    protected FlashMessage $flashMessage;
 
 
-    public function __construct(Session $session, AccountController $accountController) 
+    public function __construct(Session $session, AccountController $accountController, FlashMessage $flashMessage) 
     {
         $this->session = $session;
         $this->accountController = $accountController;
+        $this->flashMessage = $flashMessage;
     }
     
     public function login(AccountEntity $loginAccount): bool
@@ -26,7 +30,7 @@ class Auth {
         $toFindAccount = $this->accountController->findeByName($loginAccount->getName());
         if (!$toFindAccount)
         {            
-            $this->session->addFlashMsg('Fehler bei Benutzer / Passwort kombination.');
+            $this->flashMessage->add('Fehler bei Benutzer / Passwort kombination.', 'error');
             return false;
         }
         
@@ -36,7 +40,7 @@ class Auth {
             $this->session->set('username', $toFindAccount->getName());
             return true;
         }        
-        $this->session->addFlashMsg('Fehler bei Benutzer / Passwort kombination.');
+        $this->flashMessage->add('Fehler bei Benutzer / Passwort kombination.', 'error');
         return false;
     }
     

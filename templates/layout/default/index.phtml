@@ -10,15 +10,8 @@
 
         <?= $this->add('Navigation','top'); ?>  
         
-        <?php if($hasFlashMessages):?>
-            
-              <div class="alert alert-danger text-center" role="alert">
-                <?php foreach($flashMessages as $message):?>
-                  <p><?= $message?></p>
-                <?php endforeach?>
-              </div>
-            
-        <?php endif;?>
+        <?= $this->insert('partials/flashmessage'); ?>
+        
         <main>
             <?= $content ?>
         </main>
