@@ -68,6 +68,8 @@ class User extends AbstractController
     {
         
         $this->auth->logout();
+        $this->flashMessage->add('Abmeldung ausgeführt', 'info');            
         header('Location: '.$this->session->get('redirect'));
+        exit();
     }
 }
