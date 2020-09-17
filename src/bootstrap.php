@@ -23,6 +23,13 @@ try
     $request = (new Request())->createFromGlobals();            
     $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);    
     
+
+    $referer = $request->headers->get('referer');        
+    if (!\is_string($referer) || !$referer || !(bool)mb_substr_count($referer, 'bugebo')) 
+    {
+        $session->set('redirect', '/');
+    }    
+
     $router = $dependency->get('Exdrals\Excidia\Component\Router\Router');    
     $router->setRoutes(__DIR__.'/../config/routes.ini');
     $route = $router->match();
@@ -52,5 +59,5 @@ catch (UnexpectedContentException $e)
 catch (\Exception $e)
 {
     echo '<pre>';
-    echo $e->getMessage();
+    echo $e->getMessage();    
 }

@@ -38,6 +38,7 @@ class Auth {
     
     public function logout() 
     {
-        $this->session->cleanSession();
+        $this->session->unsetSession('useruuid');
+        $this->session->unsetSession('username');
     }
 }

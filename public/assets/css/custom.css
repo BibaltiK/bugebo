@@ -2,6 +2,10 @@ body {
     background-color: whitesmoke;
 }
 
+label {
+    font-size: 0.7em;
+}
+
 .navbar {
     font-size: 1.0em;
     color: lightgray;

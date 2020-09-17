@@ -8,14 +8,18 @@ use Exdrals\Excidia\Component\Template\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Exdrals\Bugebo\Controller\Auth;
 use Exdrals\Bugebo\Entity\Account;
+use Exdrals\Excidia\Component\Http\Session;
 
 class User extends AbstractController
 {       
     
     protected Auth $auth;
-    
-    public function __construct(Template $template, Request $request, Auth $auth) {
-        $this->auth =$auth;
+    protected Session $session;
+
+    public function __construct(Template $template, Request $request, Auth $auth, Session $session) {
+        $this->auth = $auth;
+        $this->session = $session;
+        
         parent::__construct($template, $request);
     }
     
@@ -26,6 +30,11 @@ class User extends AbstractController
     
     public function showLogin(): ?string
     {        
+        if (!$this->auth->isLoggedin())
+        {
+            header('Location: '.$this->session->get('redirect'));        
+        }
+        
         return 'Account';
     }
     
@@ -35,12 +44,13 @@ class User extends AbstractController
         $user->setName($this->request->request->get('username'));
         $user->setPassword($this->request->request->get('password'));
         $this->auth->login($user);
-        header('Location: /');        
+        header('Location: '.$this->session->get('redirect'));        
     }
     
     public function logout()
     {
+        
         $this->auth->logout();
-        header('Location: /');
+        header('Location: '.$this->session->get('redirect'));
     }
 }

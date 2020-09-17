@@ -41,11 +41,7 @@ require_once __DIR__.'/../src/bootstrap.php';
 
 
 $template->assign('siteTitle', 'Bugebo');
-$template->assign('username', 'Gast');
-if ($auth->isLoggedin())
-{    
-    $template->assign('username', $session->get('username'));
-}
+$template->assign('username', $session->get('username') ?? 'Gast');
 $template->assign('home', 'Startseite');    
 $template->assign('content', $content); 
 
