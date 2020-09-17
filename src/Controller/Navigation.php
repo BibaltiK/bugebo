@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo\Controller;
 use Exdrals\Bugebo\Controller\AbstractController;
 use Exdrals\Excidia\Component\Template\Template;
-use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Exdrals\Bugebo\Controller\Auth;
 
 class Navigation extends AbstractController{

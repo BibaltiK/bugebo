@@ -7,8 +7,11 @@ use Exdrals\Excidia\Component\Exception\{FileNotFoundException,
                                          RouteNotFoundException,
                                          UnexpectedContentException
     };
+use \Exdrals\Excidia\Component\Interfaces\Database;
 
-class DatabasePDO extends \PDO {
+
+class DatabasePDO extends \PDO implements Database
+{
     
     protected array $databaseConfig;
 

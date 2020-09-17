@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Controller;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
-use Exdrals\Excidia\Component\Repository\DatabasePDO;
+use Exdrals\Excidia\Component\Interfaces\Database;
 
 
 class Account 
 {
 
-    protected DatabasePDO $database;
+    protected Database $database;
     
-    public function __construct(DatabasePDO $database) 
+    public function __construct(Database $database) 
     {
         $this->database = $database;
     }
