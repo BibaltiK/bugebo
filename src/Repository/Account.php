@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Exdrals\Bugebo\Controller;
+namespace Exdrals\Bugebo\Repository;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 use Exdrals\Excidia\Component\Interfaces\Database;
 

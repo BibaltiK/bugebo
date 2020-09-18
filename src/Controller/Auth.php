@@ -6,19 +6,19 @@ namespace Exdrals\Bugebo\Controller;
 
 use Exdrals\Excidia\Component\Http\Session;
 use Exdrals\Excidia\Component\Feature\FlashMessage;
-use Exdrals\Bugebo\Controller\Account as AccountController;
+use Exdrals\Bugebo\Repository\Account as AccountRepository;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 
 class Auth {
 
     protected Session $session;    
     
-    protected AccountController $accountController;
+    protected AccountRepository $accountController;
     
     protected FlashMessage $flashMessage;
 
 
-    public function __construct(Session $session, AccountController $accountController, FlashMessage $flashMessage) 
+    public function __construct(Session $session, AccountRepository $accountController, FlashMessage $flashMessage) 
     {
         $this->session = $session;
         $this->accountController = $accountController;
