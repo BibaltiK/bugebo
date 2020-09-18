@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Exdrals\Excidia\Component\Repository\DatabasePDO;
 use Exdrals\Excidia\Component\Template\Template;
 use Exdrals\Excidia\Component\Http\Session;
+use Ramsey\Uuid\Uuid;
 
 try
 {       
@@ -23,13 +24,14 @@ try
     
     $request = (new Request())->createFromGlobals();            
     
-    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);   
+    $request = $dependency->addObject('Symfony\Component\HttpFoundation\Request', clone $request);
     
+    
+    define('PROJECT_BASE', $request->getHttpHost());
     if ((bool)mb_substr_count($request->getHttpHost(), 'local'))
     {
         define('DEVELOPE', 'true');        
-    }
-
+    }    
     $referer = $request->headers->get('referer');        
     if (!\is_string($referer) || !$referer || !(bool)mb_substr_count($referer, 'bugebo')) 
     {
@@ -40,12 +42,12 @@ try
     $router->setRoutes(__DIR__.'/../config/routes.ini');
     $route = $router->match();
         
-    $controller = $dependency->get($route['controller']);    
-    $content = call_user_func_array(array($controller, $route['action']), []);
-    
-    $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');    
-    
+    $template = $dependency->get('Exdrals\Excidia\Component\Template\Template');        
     $auth = $dependency->get('Exdrals\Bugebo\Controller\Auth');    
+    
+    $controller = $dependency->get($route['controller']);    
+    $content = call_user_func_array(array($controller, $route['action']), []);    
+    
     
 }
 catch (FileNotFoundException $e)

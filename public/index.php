@@ -50,7 +50,6 @@ $template->assign('username', $template->escape($session->get('username') ?? 'Ga
 $template->assign('home', 'Startseite');    
 $template->assign('content', $content); 
 $template->assign('hasFlashMessages',$flashMessage->hasFlashMessage());
-
 $template->assign('flashMessages',$flashMessage->get());
 
 

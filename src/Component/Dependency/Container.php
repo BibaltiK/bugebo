@@ -46,12 +46,11 @@ class Container
     }
     
     public function get(string $class): ?object
-    {        
-        
+    {                
         if (array_key_exists($class, $this->objects))
         {
             return $this->objects[$class];
-        }        
+        }            
         if (!array_key_exists($class, $this->dependencies))
         {
             return $this->add($class);
@@ -60,9 +59,9 @@ class Container
         foreach ($this->dependencies[$class] as $dependencies => $dependency)
         {
             $params[] = $this->get($dependency);
-        }        
-        
+        }                
         $object = new $class(...$params);
+        
         return $this->addObject($class, $object);
     }
 

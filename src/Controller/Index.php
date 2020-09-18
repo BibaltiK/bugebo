@@ -18,11 +18,22 @@ class Index extends AbstractController
         $this->auth = $auth;
         parent::__construct($template, $request);
     }
+    
     public function index() : ?string
     {                                                  
-        return null;
+        if ($this->auth->isLoggedin())
+        {
+            return $this->isLoggedInOverview();
+        }
+        return 'not Logged in';
     }
     
+    public function isLoggedInOverview()
+    {
+        return $this->template->render('partials/index_overview');
+    }
+
+
     public function addLoggedInBar()
     {
         if (!$this->auth->isLoggedin())
