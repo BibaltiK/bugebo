@@ -28,19 +28,26 @@ class Account
     }
     
     public function findeByUUID(string $UUID) : ?AccountEntity
-    {
-        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `uuid`=:value';     
-        return $this->findBy($sql, $UUID);
+    {        
+        return $this->findBy('uuid', $UUID);
     }
     
     public function findeByName(string $name) : ?AccountEntity
     {        
-        $sql = 'SELECT `uuid`, `name`, `email`, `passwordHash`, `registrationTime`, `lastActiv` FROM `ex_accounts` WHERE `name`=:value';     
-        return $this->findBy($sql, $name);        
+        return $this->findBy('name', $name);        
     }
     
-    protected function findBy(string $sql, string $value): ?AccountEntity
+    protected function findBy(string $key, string $value): ?AccountEntity
     {        
+        $sql = 'SELECT 
+                        `uuid`, `name`, `email`, `passwordHash`, 
+                        `registrationTime`, `lastActiv` 
+                FROM 
+                        `ex_accounts` 
+                WHERE   
+                        `'.$key.'`=:value'
+                ;     
+        
         $stmt = $this->database->prepare($sql);        
         $stmt->execute([':value' => $value]);
         $result = $stmt->fetch();        

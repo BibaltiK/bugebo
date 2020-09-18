@@ -95,7 +95,7 @@ class Account
         return $this;
     }
        
-    public function getLastActiv() : ?\DateTime
+    public function getLastActiv() : \DateTime
     {
         return $this->lastActiv;
     }                    
