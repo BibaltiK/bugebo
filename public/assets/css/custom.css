@@ -38,6 +38,30 @@ label {
     border: 1px solid #c0c0c0;            
 }
 
+.btn-loggedbar-success {
+    color: green;
+}
+
+.btn-loggedbar-success:hover {
+    color: green;
+}
+
+.btn-loggedbar-danger {
+    color: red;
+}
+
+.btn-loggedbar-danger:hover {
+    color: red;
+}
+
+.btn-loggedbar-info {
+    color: blue;
+}
+
+.btn-loggedbar-info:hover {
+    color: blue;
+}
+
 .btn-default {
     background: linear-gradient(180deg,#fff,#f6f7f9);
     border-color: #d3d4d9;
