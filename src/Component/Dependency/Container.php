@@ -26,21 +26,14 @@ class Container implements ContainerInterface
 
     public function get($class)
     {
-        if (isset($this->objects[$class]))
+        if (array_key_exists($class, $this->objects))
         {
             return $this->objects[$class];
         }
 
-
-        if (!isset($this->dependencies[$class]))
+        if (!$this->has($class))
         {
-            throw new NotFoundException('Dependency ' . $class . ' does not exist');
-        }
-
-        $dependency = $this->dependencies[$class];
-
-        if (!class_exists($class)) {
-            return $dependency;
+            throw new NotFoundException(sprintf('Dependency %s does not exist',$class));
         }
 
         $params = array_map([$this, 'get'], $this->dependencies[$class]);
@@ -52,6 +45,6 @@ class Container implements ContainerInterface
 
     public function has($dependency)
     {
-        return true;
+        return array_key_exists($dependency, $this->dependencies);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Exdrals\Excida\Component\Exception;
+namespace Exdrals\Excidia\Component\Exception;
 
 
-class NotFoundException implements \Psr\Container\NotFoundExceptionInterface
+class NotFoundException extends \Exception implements \Psr\Container\NotFoundExceptionInterface
 {
 
 }
