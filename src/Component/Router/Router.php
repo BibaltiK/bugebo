@@ -42,7 +42,8 @@ class Router
             
             if (array_key_exists('params', $routeInfo))
             {
-                $routeInfo['params'] = $matches[array_key_last($matches)];
+
+                $routeInfo['params'] = explode('/',$matches[array_key_last($matches)]);
             }
             return $routeInfo;
         }    
