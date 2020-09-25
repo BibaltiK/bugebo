@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Template;
-use Exdrals\Excidia\Component\Dependency\Container;
 use Exdrals\Excidia\Component\Exception\FileNotFoundException;
+use Psr\Container\ContainerInterface;
 
 class Template {
     
@@ -19,10 +19,10 @@ class Template {
 
     protected ?array $data = [];
     
-    protected Container $dependency;
+    protected ContainerInterface $dependency;
 
     
-    public function __construct(Container $dependency) 
+    public function __construct(ContainerInterface $dependency)
     {
         $this->data = [];
         $this->dependency = $dependency;

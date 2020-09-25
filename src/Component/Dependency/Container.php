@@ -1,76 +1,58 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Dependency;
+use Psr\Container\ContainerInterface;
 
-class Container 
+
+class Container implements ContainerInterface
 {
-    protected ?array $dependencies = [];
-    
-    protected ?array $objects = [];
-    
-    public function __construct(?string $configFile = null)
+    protected array $dependencies;
+
+    protected array $objects;
+
+    public function __construct(array $dependencies)
     {
-        $this->dependencies = [];
-        $this->objects = [];
-        if ($configFile)
-        {
-            $this->readDependencyConfig($configFile);
-        }
+        $this->dependencies = $dependencies;
+
+        $this->objects[self::class] = $this;
     }
 
-    public function readDependencyConfig(string $configFile)
+    public function set(string $class, object $instance)
     {
-        if (!$this->existsConfigFile($configFile))
-            throw new FileNotFoundException (sprintf('File: %s not found.',$configFile));
-        
-        $dependencies = parse_ini_file($configFile, true, INI_SCANNER_TYPED);
-        
-        if (!is_array($dependencies))
-            throw new UnexpectedContentException (sprintf('Dependency-Config must be array or null'));
-        
-        $this->dependencies = $dependencies;   
+        $this->objects[$class] = $instance;
     }
-    
-    public function add(string $class) : object
+
+    public function get($class)
     {
-        $this->objects[$class] = new $class();        
-        return $this->objects[$class];
-    }
-    
-    public function addObject(string $class, object $object) : object
-    {
-        $this->objects[$class] = $object;
-        return $object;
-    }
-    
-    public function get(string $class): ?object
-    {                
-        if (array_key_exists($class, $this->objects))
+        if (isset($this->objects[$class]))
         {
             return $this->objects[$class];
-        }            
-        if (!array_key_exists($class, $this->dependencies))
-        {
-            return $this->add($class);
         }
-        $params = [];
-        foreach ($this->dependencies[$class] as $dependencies => $dependency)
+
+
+        if (!isset($this->dependencies[$class]))
         {
-            $params[] = $this->get($dependency);
-        }                
-        $object = new $class(...$params);
-        
-        return $this->addObject($class, $object);
+            var_dump($this->dependencies);
+            var_dump($class);die();
+            throw new Exception('Dependency ' . $class . ' does not exist');
+        }
+
+        $dependency = $this->dependencies[$class];
+
+        if (!class_exists($class)) {
+            return $dependency;
+        }
+
+        $params = array_map([$this, 'get'], $this->dependencies[$class]);
+
+        $this->objects[$class] = new $class(...$params);
+
+        return $this->objects[$class];
     }
 
-    protected function existsConfigFile(string $configFile) : bool
+    public function has($dependency)
     {
-        if ((!is_file($configFile))  || (!is_readable($configFile)))
-        {
-            return false;
-        }            
         return true;
     }
 }

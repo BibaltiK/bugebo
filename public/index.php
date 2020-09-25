@@ -52,5 +52,4 @@ $template->assign('content', $content);
 $template->assign('hasFlashMessages',$flashMessage->hasFlashMessage());
 $template->assign('flashMessages',$flashMessage->get());
 
-
 echo $template->render();  
