@@ -5,7 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Psr\Container\ContainerInterface;
 use Exdrals\Excidia\Component\Exception\{   FileNotFoundException,
                                             RouteNotFoundException,
-                                            UnexpectedContentException
+                                            UnexpectedContentException,
+                                            NotFoundException
 };
 use Exdrals\Excidia\Component\Dependency\Container;
 use Exdrals\Bugebo\Controller\Auth;
@@ -57,6 +58,17 @@ try
     $content = call_user_func_array(array($controller, $route['action']), []);
 }
 catch (FileNotFoundException $e)
+{
+    if (!defined('DEVELOPE'))
+    {
+        header('Location: '.$session->get('redirect'));
+        exit();
+    }
+    echo '<pre>';
+    echo $e->getMessage();
+    exit();
+}
+catch (NotFoundException $e)
 {
     if (!defined('DEVELOPE'))
     {

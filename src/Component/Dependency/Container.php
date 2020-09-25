@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Exdrals\Excidia\Component\Dependency;
 use Psr\Container\ContainerInterface;
+use Exdrals\Excidia\Component\Exception\NotFoundException;
 
 
 class Container implements ContainerInterface
@@ -33,7 +34,7 @@ class Container implements ContainerInterface
 
         if (!isset($this->dependencies[$class]))
         {
-            throw new Exception('Dependency ' . $class . ' does not exist');
+            throw new NotFoundException('Dependency ' . $class . ' does not exist');
         }
 
         $dependency = $this->dependencies[$class];
