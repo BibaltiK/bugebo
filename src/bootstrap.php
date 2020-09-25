@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace Exdrals\Bugebo;
+use Exdrals\Bugebo\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Psr\Container\ContainerInterface;
 use Exdrals\Excidia\Component\Exception\{   FileNotFoundException,
@@ -22,7 +23,7 @@ try
     error_reporting(-1);
     ini_set ('display_errors', 'On');
     $dependency = new Container(require_once __DIR__.'/../config/dependencies.php');
-    $dependency->set(DatabasePDO::class, new DatabasePDO(__DIR__.'/../config/database.ini'));
+    $dependency->set(DatabasePDO::class, new DatabasePDO(require_once __DIR__.'/../config/database.php'));
     $dependency->set(Request::class, (new Request())->createFromGlobals());
 
     $session = $dependency->get(Session::class);
@@ -47,13 +48,15 @@ try
         $session->set('redirect', '/');
     }
 
+    /** @var Router $router */
     $router = $dependency->get(Router::class);
-    $router->setRoutes(__DIR__.'/../config/routes.ini');
+    $router->setRoutes(require_once __DIR__.'/../config/routes.php');
     $route = $router->match();
 
     $template = $dependency->get(Template::class);
     $auth = $dependency->get(Auth::class);
 
+    /** @var AbstractController $controller */
     $controller = $dependency->get($route['controller']);
     $content = call_user_func_array(array($controller, $route['action']), []);
 }

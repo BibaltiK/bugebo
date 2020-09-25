@@ -3,7 +3,7 @@
 composer.phar
 composer.lock
 /vendor/
-/config/database.ini
+/config/database.php
 /config/config.ini
 *.csv
 .vscode/

@@ -32,11 +32,14 @@
  * @license     MIT License <https://opensource.org/licenses/MIT>
  */
 declare(strict_types=1);
+use Exdrals\Excidia\Component\Feature\FlashMessage;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__.'/../src/bootstrap.php';
 
-$flashMessage = $dependency->get('Exdrals\Excidia\Component\Feature\FlashMessage');
+/** @var FlashMessage $flashMessage */
+$flashMessage = $dependency->get(FlashMessage::class);
+
 $template->assign('siteTitle', 'Bugebo');
 $template->assign('username', $template->escape($session->get('username') ?? 'Gast'));
 $template->assign('home', 'Startseite');    

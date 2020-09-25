@@ -13,11 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 class Router 
 {
     protected ?array $routes = [];
-
     protected Request $request;
-    
     protected string $requestURI;
-
 
     public function __construct(Request $request) 
     {
@@ -26,21 +23,11 @@ class Router
         $this->requestURI = $this->getModifiedRequestURI();
     }
 
-    
-    public function setRoutes(string $routeConfigFile) : void
+    public function setRoutes(array $routeConfig) : void
     {
-        if (!$this->existsConfigFile($routeConfigFile))
-            throw new FileNotFoundException (sprintf('File: %s not found.',$routeConfigFile));
-        
-        $routes = parse_ini_file($routeConfigFile, true, INI_SCANNER_TYPED);
-        
-        if (!is_array($routes))
-            throw new UnexpectedContentException (sprintf('Routerconfig must be array or null'));
-        
-        $this->routes = $routes;
+        $this->routes = $routeConfig;
     }
 
-    
     public function match() : array
     {               
         foreach ($this->routes as $route => $routeInfo) 
@@ -67,17 +54,6 @@ class Router
     {
         return $this->request->getMethod().'_'.$this->request->getRequestUri();
     }
-
-
-    protected function existsConfigFile(string $configFile) : bool
-    {
-        if ((!is_file($configFile))  || (!is_readable($configFile)))
-        {
-            return false;
-        }            
-        return true;
-    }
-
 
     protected function getRegEx(string $method, string $route) : string
     {

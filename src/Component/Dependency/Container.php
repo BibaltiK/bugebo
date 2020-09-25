@@ -24,7 +24,7 @@ class Container implements ContainerInterface
         $this->objects[$class] = $instance;
     }
 
-    public function get($class)
+    public function get($class): object
     {
         if (array_key_exists($class, $this->objects))
         {
