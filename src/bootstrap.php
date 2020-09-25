@@ -18,6 +18,8 @@ use Ramsey\Uuid\Uuid;
 
 try
 {
+    error_reporting(-1);
+    ini_set ('display_errors', 'On');
     $dependency = new Container(require_once __DIR__.'/../config/dependencies.php');
     $dependency->set(DatabasePDO::class, new DatabasePDO(__DIR__.'/../config/database.ini'));
     $dependency->set(Request::class, (new Request())->createFromGlobals());
@@ -29,6 +31,14 @@ try
     if ((bool)mb_substr_count($request->getHttpHost(), 'local'))
     {
         define('DEVELOPE', 'true');
+    }
+
+    error_reporting(0);
+
+    if (defined('DEVELOPE'))
+    {
+        error_reporting(-1);
+        ini_set ('display_errors', 'On');
     }
     $referer = $request->headers->get('referer');
     if (!\is_string($referer) || !$referer || !(bool)mb_substr_count($referer, 'bugebo'))

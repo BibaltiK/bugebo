@@ -33,8 +33,6 @@ class Container implements ContainerInterface
 
         if (!isset($this->dependencies[$class]))
         {
-            var_dump($this->dependencies);
-            var_dump($class);die();
             throw new Exception('Dependency ' . $class . ' does not exist');
         }
 

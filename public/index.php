@@ -36,14 +36,6 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__.'/../src/bootstrap.php';
 
-error_reporting(0);
-
-if (defined('DEVELOPE'))
-{
-    error_reporting(-1);
-    ini_set ('display_errors', 'On');
-}
-
 $flashMessage = $dependency->get('Exdrals\Excidia\Component\Feature\FlashMessage');
 $template->assign('siteTitle', 'Bugebo');
 $template->assign('username', $template->escape($session->get('username') ?? 'Gast'));
