@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Repository;
+use DateTime;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 use Exdrals\Excidia\Component\Interfaces\Database;
 
@@ -59,8 +60,8 @@ class Account
         $account->setName($result['name']);
         $account->setEmail($result['email']);
         $account->setPasswordHash($result['passwordHash']);
-        $account->setRegistrationTime(new \DateTime($result['registrationTime']));
-        $account->setLastActiv(new \DateTime($result['lastActiv']));        
+        $account->setRegistrationTime(new DateTime($result['registrationTime']));
+        $account->setLastActiv(new DateTime($result['lastActiv']));
         return $account;
     }    
 }

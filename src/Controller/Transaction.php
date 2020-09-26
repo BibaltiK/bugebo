@@ -28,8 +28,9 @@ class Transaction extends AbstractController
         }
     }
     
-    public function newIncomingPayment()
+    public function newPayment(string $paymentArt)
     {
+        $this->template->assign('paymentArt', $paymentArt);
         return $this->template->render('partials/transaction_payment_new');;
     }
 }

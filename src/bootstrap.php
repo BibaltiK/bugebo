@@ -58,7 +58,7 @@ try
 
     /** @var AbstractController $controller */
     $controller = $dependency->get($route['controller']);
-    $content = call_user_func_array(array($controller, $route['action']), []);
+    $content = call_user_func_array(array($controller, $route['action']), $route['params'] ?? []);
 }
 catch (FileNotFoundException $e)
 {

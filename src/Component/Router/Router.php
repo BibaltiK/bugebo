@@ -43,7 +43,13 @@ class Router
             if (array_key_exists('params', $routeInfo))
             {
 
-                $routeInfo['params'] = explode('/',$matches[array_key_last($matches)]);
+                $methodParams = explode('/', rtrim($matches[array_key_last($matches)],'/'));
+                if(count($routeInfo['params']) != count($methodParams))
+                {
+                    throw new RouteNotFoundException(sprintf('No matching route found for: <b>%s</b>',$this->requestURI));
+                }
+                $routeInfo['params'] = $methodParams;
+
             }
             return $routeInfo;
         }    

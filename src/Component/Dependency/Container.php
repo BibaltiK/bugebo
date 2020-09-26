@@ -43,8 +43,8 @@ class Container implements ContainerInterface
         return $this->objects[$class];
     }
 
-    public function has($dependency)
+    public function has($dependency): bool
     {
-        return array_key_exists($dependency, $this->dependencies);
+        return (boolean)array_key_exists($dependency, $this->dependencies);
     }
 }

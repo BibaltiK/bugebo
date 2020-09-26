@@ -37,10 +37,10 @@ return [
                     'method' => 'GET'
                 ],
         'transaction_payments' => [
-                    'path' => '/transaction/payment/(\S+)?',
+                    'path' => '/transaction/payment/(\S+)',
                     'controller' => Transaction::class,
-                    'action' => 'newIncomingPayment',
+                    'action' => 'newPayment',
                     'method' => 'GET',
-                    'params' => []
+                    'params' => ['paymentArt']
                 ]
 ];

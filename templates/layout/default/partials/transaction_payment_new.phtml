@@ -1,7 +1,21 @@
-<div class="container">
-    
-    <form id="transaction-new" class="form" action="/transaction/payment/create" method="post">                        
-        <button type="submit" tabindex="8" class="btn btn-success btn-sm" id="CreateButton"><i class="fa fa-check" aria-hidden="true"></i> Speichern</button>
-    </form>
-</div>
-
+<form id="transaction-new" class="form" action="/transaction/payment/create" method="post">
+    <div class="container">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentArt" id="paymentArtIncoming" value="incoming" <?php if ($paymentArt=='incoming'):?>checked<?php endif;?>>
+            <label class="form-check-label"  style="min-width: 100px" for="paymentArtIncoming">
+                Einnahme
+            </label>
+            <input class="form-check-input" type="radio" name="paymentArt" id="paymentArtOutgoing" value="outgoing" <?php if ($paymentArt=='outgoing'):?>checked<?php endif;?>>
+            <label class="form-check-label" for="paymentArtOutgoing">
+                Ausgabe
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="amount" class="font-weight-bold font-italic">Betrag:</label>
+            <div class="input-group">
+                <input type="number" tabindex="1" class="form-control-sm" min="0" step="0.01" placeholder="0,00" name="amount"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success btn-sm" id="CreateButton"><i class="fa fa-check" aria-hidden="true"></i> Speichern</button>
+    </div>
+</form>

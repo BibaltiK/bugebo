@@ -5,4 +5,5 @@ namespace Exdrals\Excidia\Component\Interfaces;
 
 interface Database {
 
+    public function prepare(string $sql);
 }
