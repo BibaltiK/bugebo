@@ -36,6 +36,12 @@ return [
                     'action' => 'show',
                     'method' => 'GET'
                 ],
+        'transaction_payments_rearrangement' => [
+                    'path' => '/transaction/payment/rearrangement',
+                    'controller' => Transaction::class,
+                    'action' => 'newRearrangement',
+                    'method' => 'GET'
+                ],
         'transaction_payments' => [
                     'path' => '/transaction/payment/(\S+)',
                     'controller' => Transaction::class,

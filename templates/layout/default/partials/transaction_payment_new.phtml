@@ -2,13 +2,14 @@
 <form id="transaction-new" class="form" action="/transaction/payment/create" method="post">
     <div class="row">
         <div class="col">
-            <div class="form-check">
+            <div class="form-control-range">
+
                 <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeIncoming" value="incoming" <?php if ($paymentType=='incoming'):?>checked<?php endif;?>>
-                <label class="form-check-label"  style="min-width: 100px" for="paymentTypeIncoming">
+                <label class="col-form-label"  style="min-width: 100px" for="paymentTypeIncoming">
                     Einnahme
                 </label>
                 <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeOutgoing" value="outgoing" <?php if ($paymentType=='outgoing'):?>checked<?php endif;?>>
-                <label class="form-check-label" for="paymentTypeOutgoing">
+                <label class="col-form-label" for="paymentTypeOutgoing">
                     Ausgabe
                 </label>
             </div>
@@ -87,7 +88,8 @@
                     <label for="kategorie" class="font-weight-bold font-italic">Kategorie:</label>
                 </div>
                 <div class="input-group">
-                    <select name="kategorie" class="input-group-append" tabindex="6" id="kategorie">
+                    <select name="kategorie" class="input-group-append" tabindex="6" id="kategorie" data-browse="">
+                        <option value="" disabled selected hidden>Bitte eine Kategorie auswählen...</option>
                         <?php foreach($categories as $categorie): ?>
                             <option value="<?=$categorie;?>"><?=$categorie;?></option>
                         <?php endforeach;?>

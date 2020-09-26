@@ -3,16 +3,16 @@
 declare(strict_types=1);
 namespace Exdrals\Bugebo\Controller;
 
+use Exdrals\Excidia\Component\Exception\RouteNotFoundException;
 use Exdrals\Excidia\Component\Template\Template;
 use Exdrals\Excidia\Component\Http\Session;
 use Symfony\Component\HttpFoundation\Request;
-use Exdrals\Bugebo\Controller\AbstractController;
-use Exdrals\Bugebo\Controller\Auth;
+
 
 
 class Transaction extends AbstractController
 {
-    
+    const PAYMENTTYPE = ['incoming', 'outgoing'];
     protected Auth $auth;
     protected Session $session;
 
@@ -27,9 +27,18 @@ class Transaction extends AbstractController
             exit();
         }
     }
-    
+
+    public function newRearrangement()
+    {
+
+    }
+
     public function newPayment(string $paymentType)
     {
+        if (!in_array($paymentType,self::PAYMENTTYPE))
+        {
+            throw new RouteNotFoundException(sprintf('No matching Parametes found for: <b>%s</b>',$paymentType));
+        }
         $this->template->assign('konten', ['DKB', 'Deutsche-Bank']);
         $this->template->assign('paymentArts', ['Lastschrift', 'Überweisung', 'Kreditkarte', 'Barzahlung', 'EC-Karte', 'sonstiges']);
         $this->template->assign('paymentType', $paymentType);
