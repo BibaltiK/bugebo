@@ -28,9 +28,12 @@ class Transaction extends AbstractController
         }
     }
     
-    public function newPayment(string $paymentArt)
+    public function newPayment(string $paymentType)
     {
-        $this->template->assign('paymentArt', $paymentArt);
+        $this->template->assign('konten', ['DKB', 'Deutsche-Bank']);
+        $this->template->assign('paymentArts', ['Lastschrift', 'Überweisung', 'Kreditkarte', 'Barzahlung', 'EC-Karte', 'sonstiges']);
+        $this->template->assign('paymentType', $paymentType);
+        $this->template->assign('categories', ['Auto', 'Motor', 'Sport']);
         return $this->template->render('partials/transaction_payment_new');;
     }
 }

@@ -1,21 +1,108 @@
+<div class="container" style="max-width: 60%">
 <form id="transaction-new" class="form" action="/transaction/payment/create" method="post">
-    <div class="container">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="paymentArt" id="paymentArtIncoming" value="incoming" <?php if ($paymentArt=='incoming'):?>checked<?php endif;?>>
-            <label class="form-check-label"  style="min-width: 100px" for="paymentArtIncoming">
-                Einnahme
-            </label>
-            <input class="form-check-input" type="radio" name="paymentArt" id="paymentArtOutgoing" value="outgoing" <?php if ($paymentArt=='outgoing'):?>checked<?php endif;?>>
-            <label class="form-check-label" for="paymentArtOutgoing">
-                Ausgabe
-            </label>
-        </div>
-        <div class="form-group">
-            <label for="amount" class="font-weight-bold font-italic">Betrag:</label>
-            <div class="input-group">
-                <input type="number" tabindex="1" class="form-control-sm" min="0" step="0.01" placeholder="0,00" name="amount"/>
+    <div class="row">
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeIncoming" value="incoming" <?php if ($paymentType=='incoming'):?>checked<?php endif;?>>
+                <label class="form-check-label"  style="min-width: 100px" for="paymentTypeIncoming">
+                    Einnahme
+                </label>
+                <input class="form-check-input" type="radio" name="paymentType" id="paymentTypeOutgoing" value="outgoing" <?php if ($paymentType=='outgoing'):?>checked<?php endif;?>>
+                <label class="form-check-label" for="paymentTypeOutgoing">
+                    Ausgabe
+                </label>
             </div>
         </div>
-        <button type="submit" class="btn btn-success btn-sm" id="CreateButton"><i class="fa fa-check" aria-hidden="true"></i> Speichern</button>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="col-form-label">
+                    <label class="font-weight-bold font-italic" for="paymenDate">Buchungstag:</label>
+                </div>
+                <div class="input-group">
+                    <input type="date" class="input-group-append" tabindex="1" name="paymentDate" id="paymenDate" value="<?= date('Y-m-d');?>"  autofocus />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="col-form-label">
+                    <label for="amount" class="font-weight-bold font-italic">Betrag:</label>
+                </div>
+                <div class="input-group">
+                    <input type="number" class="input-group-append" tabindex="2" min="0" step="0.01" placeholder="0,00" name="amount"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="col-form-label">
+                    <label for="konto" class="font-weight-bold font-italic">Konto:</label>
+                </div>
+                <div class="input-group">
+                    <select name="konto" class="input-group-append" tabindex="3" id="konto">
+                        <?php foreach($konten as $konto): ?>
+                            <option value="<?=$konto;?>"><?=$konto;?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="col-form-label">
+                    <label for="paymentArt" class="font-weight-bold font-italic">Zahlungsart:</label>
+                </div>
+                <div class="input-group">
+                    <select name="paymentArt" class="input-group-append" tabindex="4" id="paymentArt">
+                        <?php foreach($paymentArts as $paymentArt): ?>
+                            <option value="<?=$paymentArt;?>"><?=$paymentArt;?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="col-form-label">
+                    <label for="intendedUse" class="font-weight-bold font-italic">Verwendungszweck:</label>
+                </div>
+                <div class="input-group">
+                    <textarea class="input-group-append" cols="100" tabindex="5" placeholder="Verwendungszweck" name="intendedUse" form="transaction-new"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="col-form-label">
+                    <label for="kategorie" class="font-weight-bold font-italic">Kategorie:</label>
+                </div>
+                <div class="input-group">
+                    <select name="kategorie" class="input-group-append" tabindex="6" id="kategorie">
+                        <?php foreach($categories as $categorie): ?>
+                            <option value="<?=$categorie;?>"><?=$categorie;?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-sm" tabindex="7" id="CreateButton"><i class="fa fa-check" aria-hidden="true"></i> Speichern</button>
+            </div>
+        </div>
     </div>
 </form>
+</div>

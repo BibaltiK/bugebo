@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Repository;
-use DateTime;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 use Exdrals\Excidia\Component\Interfaces\Database;
 
@@ -18,12 +17,12 @@ class Account
         $this->database = $database;
     }
     
-    public function createOrUpdate(Account $user)
+    public function createOrUpdate(AccountEntity $user)
     {
         
     }
     
-    public function delete(Account $user) 
+    public function delete(AccountEntity $user)
     {
         
     }
@@ -37,7 +36,12 @@ class Account
     {        
         return $this->findBy('name', $name);        
     }
-    
+
+    public function findeByEMail(string $email) : ?AccountEntity
+    {
+        return $this->findBy('email', $email);
+    }
+
     protected function findBy(string $key, string $value): ?AccountEntity
     {        
         $sql = 'SELECT 
@@ -60,8 +64,8 @@ class Account
         $account->setName($result['name']);
         $account->setEmail($result['email']);
         $account->setPasswordHash($result['passwordHash']);
-        $account->setRegistrationTime(new DateTime($result['registrationTime']));
-        $account->setLastActiv(new DateTime($result['lastActiv']));
+        $account->setRegistrationTime(new \DateTime($result['registrationTime']));
+        $account->setLastActiv(new \DateTime($result['lastActiv']));
         return $account;
     }    
 }

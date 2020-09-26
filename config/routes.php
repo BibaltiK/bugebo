@@ -41,6 +41,6 @@ return [
                     'controller' => Transaction::class,
                     'action' => 'newPayment',
                     'method' => 'GET',
-                    'params' => ['paymentArt']
+                    'params' => ['paymentType']
                 ]
 ];
