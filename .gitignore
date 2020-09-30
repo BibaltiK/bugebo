@@ -8,3 +8,4 @@ composer.lock
 *.csv
 .vscode/
 .idea/
+*.cache
