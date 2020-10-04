@@ -8,15 +8,18 @@
 
     <body>   
 
-        <?= $this->add('Navigation','top'); ?> 
+
+        <?= $this->insert('partials/navigation_top'); ?>
+
+        <?= $this->insert($loginActionBar); ?>
         
-        <?= $this->add('Index','addLoggedInBar'); ?>
-        
-        <?= $this->insert('partials/flashmessage'); ?>        
+        <?= $this->insert('partials/flashmessage'); ?>
+
         <main class="container" style="min-height: 500px">
             <?= $content ?>
         </main>
         <div style="min-height: 100px;"></div>
+
         <?= $this->insert('partials/footer'); ?>
 
         <?= $this->insert('partials/scripts'); ?>

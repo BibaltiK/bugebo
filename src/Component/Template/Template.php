@@ -32,16 +32,13 @@ class Template {
     {
         $this->templateFile = $templateFile;
     }
-
-    public function add(string $class, string $method = 'process')
-    {        
-        $class = $this->templateNamespace.'\\'.$class;        
-        $object = $this->dependency->get($class);
-        return call_user_func_array(array($object, $method), []);                
-    }
     
     public function insert(string $templateFile)
     {
+        if (empty($templateFile))
+        {
+            return '';
+        }
         return $this->render($templateFile);
     }
     

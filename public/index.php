@@ -42,7 +42,15 @@ $flashMessage = $dependency->get(FlashMessage::class);
 
 $template->assign('siteTitle', 'Bugebo');
 $template->assign('username', $template->escape($session->get('username') ?? 'Gast'));
-$template->assign('home', 'Startseite');    
+$template->assign('home', 'Startseite');
+$template->assign('loginBar', 'partials/navigation_top_loggedout');
+$template->assign('loginActionBar', '');
+
+if ($auth->isLoggedin())
+{
+    $template->assign('loginBar', 'partials/navigation_top_loggedin');
+    $template->assign('loginActionBar', 'partials/navigation_login_action_bar');
+}
 $template->assign('content', $content); 
 $template->assign('hasFlashMessages',$flashMessage->hasFlashMessage());
 $template->assign('flashMessages',$flashMessage->get());

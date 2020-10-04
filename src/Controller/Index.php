@@ -32,14 +32,4 @@ class Index extends AbstractController
     {
         return $this->template->render('partials/index_overview');
     }
-
-
-    public function addLoggedInBar()
-    {
-        if (!$this->auth->isLoggedin())
-        {
-            return null;
-        }
-        return $this->template->render('partials/navigation_loggedin_bar');
-    }
 }
