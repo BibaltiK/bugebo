@@ -27,12 +27,12 @@ class Account
         
     }
     
-    public function findeByUUID(string $UUID) : ?AccountEntity
+    public function findByUUID(string $UUID) : ?AccountEntity
     {        
         return $this->findBy('uuid', $UUID);
     }
     
-    public function findeByName(string $name) : ?AccountEntity
+    public function findByName(string $name) : ?AccountEntity
     {        
         return $this->findBy('name', $name);        
     }

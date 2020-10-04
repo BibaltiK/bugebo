@@ -13,21 +13,21 @@ class Auth {
 
     protected Session $session;    
     
-    protected AccountRepository $accountController;
+    protected AccountRepository $accountRepository;
     
     protected FlashMessage $flashMessage;
 
 
-    public function __construct(Session $session, AccountRepository $accountController, FlashMessage $flashMessage) 
+    public function __construct(Session $session, AccountRepository $accountRepository, FlashMessage $flashMessage)
     {
         $this->session = $session;
-        $this->accountController = $accountController;
+        $this->accountRepository = $accountRepository;
         $this->flashMessage = $flashMessage;
     }
     
     public function login(AccountEntity $loginAccount): bool
     {
-        $toFindAccount = $this->accountController->findeByName($loginAccount->getName());
+        $toFindAccount = $this->accountRepository->findByName($loginAccount->getName());
         if (!$toFindAccount)
         {            
             $this->flashMessage->add('Fehler bei Benutzer / Passwort kombination.', 'error');
