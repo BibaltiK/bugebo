@@ -29,78 +29,79 @@ class Account
     }
 
 
-    public function getUuid() : string
+    public function getUuid(): string
     {
         return $this->uuid;
     }
     
-    public function setUuid(string $uuid) : self
+    public function setUuid(string $uuid): self
     {
         $this->uuid = $uuid;
         return $this;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
     
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getEmail() : ?string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
     
-    public function setEmail(?string $email) : self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
-    public function getPassword() : ?string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
     
-    public function setPassword(string $password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
         $this->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
+        return $this;
     }
     
-    public function getPasswordHash() : string
+    public function getPasswordHash(): string
     {
         return $this->passwordHash;
     }
     
-    public function setPasswordHash(string $passwordHash) : self
+    public function setPasswordHash(string $passwordHash): self
     {
         $this->passwordHash = $passwordHash;
         return $this;
     }
 
-    public function getRegistrationTime() : \DateTime
+    public function getRegistrationTime(): \DateTime
     {
         return $this->registrationTime;
     }
     
-    public function setRegistrationTime(\DateTime $registrationTime) : self
+    public function setRegistrationTime(\DateTime $registrationTime): self
     {
         $this->registrationTime = $registrationTime;
         return $this;
     }
        
-    public function getLastActiv() : \DateTime
+    public function getLastActiv(): \DateTime
     {
         return $this->lastActiv;
     }                    
 
-    public function setLastActiv(\DateTime $lastActiv) : self
+    public function setLastActiv(\DateTime $lastActiv): self
     {
         $this->lastActiv = $lastActiv;
         return $this;

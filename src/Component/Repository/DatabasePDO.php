@@ -7,7 +7,7 @@ use Exdrals\Excidia\Component\Exception\{FileNotFoundException,
                                          RouteNotFoundException,
                                          UnexpectedContentException
     };
-use \Exdrals\Excidia\Component\Interfaces\Database;
+use \Exdrals\Excidia\Component\Repository\Database;
 
 
 class DatabasePDO extends \PDO implements Database

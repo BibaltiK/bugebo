@@ -14,7 +14,8 @@ use Exdrals\Bugebo\Controller\Auth;
 use Exdrals\Excidia\Component\{ Router\Router,
                                 Repository\DatabasePDO,
                                 Template\Template,
-                                Http\Session
+                                Http\Session,
+                                Feature\FlashMessage
 };
 use Ramsey\Uuid\Uuid;
 
@@ -26,7 +27,10 @@ try
     $dependency->set(DatabasePDO::class, new DatabasePDO(require_once __DIR__.'/../config/database.php'));
     $dependency->set(Request::class, (new Request())->createFromGlobals());
 
+    /** @var Session $session */
     $session = $dependency->get(Session::class);
+
+    /** @var Request $request */
     $request = $dependency->get(Request::class);
 
     define('PROJECT_BASE', $request->getHttpHost());
@@ -53,8 +57,14 @@ try
     $router->setRoutes(require_once __DIR__.'/../config/routes.php');
     $route = $router->match();
 
+    /** @var  Template $template */
     $template = $dependency->get(Template::class);
+
+    /** @var Auth $auth */
     $auth = $dependency->get(Auth::class);
+
+    /** @var FlashMessage $flashMessage */
+    $flashMessage = $dependency->get(FlashMessage::class);
 
     /** @var AbstractController $controller */
     $controller = $dependency->get($route['controller']);

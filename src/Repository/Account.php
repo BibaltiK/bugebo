@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Repository;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
-use Exdrals\Excidia\Component\Interfaces\Database;
+use Exdrals\Excidia\Component\Repository\Database;
 
 
 class Account 

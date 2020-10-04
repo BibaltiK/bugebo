@@ -15,11 +15,9 @@ class Container implements ContainerInterface
     public function __construct(array $dependencies)
     {
         $this->dependencies = $dependencies;
-
-        $this->objects[self::class] = $this;
     }
 
-    public function set(string $class, object $instance)
+    public function set(string $class, object $instance): void
     {
         $this->objects[$class] = $instance;
     }

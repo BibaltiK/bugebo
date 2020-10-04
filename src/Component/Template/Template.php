@@ -10,22 +10,14 @@ class Template {
     protected string $templatePath = __DIR__.'/../../../templates/';
     
     protected string $layout = 'default';
-    
-    protected string $templateFile = 'index';
-    
+
     protected string $templateExtension = '.phtml';
     
-    protected string $templateNamespace = 'Exdrals\Bugebo\Controller';
-
     protected ?array $data = [];
-    
-    protected ContainerInterface $dependency;
 
-    
-    public function __construct(ContainerInterface $dependency)
+    public function __construct()
     {
         $this->data = [];
-        $this->dependency = $dependency;
     }
     
     public function setTemplateFile(string $templateFile)
@@ -47,9 +39,9 @@ class Template {
         $this->data[$key] = $value;
     }
     
-    public function getAssign(string $key)
+    public function getAssign(string $key): ?string
     {
-        return $this->data[$key] ?? false;
+        return $this->data[$key] ?? null;
     }
 
     public function escape(string $value): string
@@ -57,9 +49,8 @@ class Template {
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
     }
 
-    public function render(?string $templateFile = null)
+    public function render(string $templateFile = 'index')
     {
-        $templateFile = $templateFile ?? $this->templateFile;
         $templateFile = $this->templatePath.'layout/'.$this->layout.'/'.$templateFile.$this->templateExtension;
         if (!is_readable($templateFile))
         {
@@ -69,5 +60,36 @@ class Template {
         ob_start();        
         include $templateFile;
         return ob_get_clean();
+    }
+
+
+    public function getTemplatePath(): string
+    {
+        return $this->templatePath;
+    }
+
+    public function setTemplatePath(string $templatePath): void
+    {
+        $this->templatePath = $templatePath;
+    }
+
+    public function getLayout(): string
+    {
+        return $this->layout;
+    }
+
+    public function setLayout(string $layout): void
+    {
+        $this->layout = $layout;
+    }
+
+    public function getTemplateExtension(): string
+    {
+        return $this->templateExtension;
+    }
+
+    public function setTemplateExtension(string $templateExtension): void
+    {
+        $this->templateExtension = $templateExtension;
     }
 }

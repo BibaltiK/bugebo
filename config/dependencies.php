@@ -9,7 +9,6 @@ use Exdrals\Excidia\Component\Repository\DatabasePDO;
 use Exdrals\Bugebo\Repository\Account;
 use Exdrals\Bugebo\Controller\{
                                 Auth,
-                                Navigation,
                                 Index,
                                 User,
                                 Transaction
@@ -25,9 +24,7 @@ return [
         FlashMessage::class => [
             Session::class
         ],
-        Template::class => [
-            Container::class
-        ],
+        Template::class => [],
         Account::class => [
             DatabasePDO::class
         ],
@@ -36,11 +33,6 @@ return [
             Session::class,
             Account::class,
             FlashMessage::class
-        ],
-        Navigation::class => [
-            Template::class,
-            Request::class,
-            Auth::class
         ],
         Index::class => [
             Template::class,

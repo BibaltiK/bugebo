@@ -3,7 +3,7 @@
  *
  * MIT License
  *
- * Copyright (c) 2014-2020 BibaltiK - eXdraLs.de
+ * Copyright (c) 2014-2020 eXdraLs.de
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,13 +32,10 @@
  * @license     MIT License <https://opensource.org/licenses/MIT>
  */
 declare(strict_types=1);
-use Exdrals\Excidia\Component\Feature\FlashMessage;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__.'/../src/bootstrap.php';
 
-/** @var FlashMessage $flashMessage */
-$flashMessage = $dependency->get(FlashMessage::class);
 
 $template->assign('siteTitle', 'Bugebo');
 $template->assign('username', $template->escape($session->get('username') ?? 'Gast'));
@@ -55,4 +52,5 @@ $template->assign('content', $content);
 $template->assign('hasFlashMessages',$flashMessage->hasFlashMessage());
 $template->assign('flashMessages',$flashMessage->get());
 
+$test = $template->getAssign('home');
 echo $template->render();  
