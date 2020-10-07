@@ -1,12 +1,11 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
-use Exdrals\Excidia\Component\Dependency\Container;
 use Exdrals\Excidia\Component\Router\Router;
 use Exdrals\Excidia\Component\Http\Session;
 use Exdrals\Excidia\Component\Feature\FlashMessage;
 use Exdrals\Excidia\Component\Template\Template;
 use Exdrals\Excidia\Component\Repository\DatabasePDO;
-use Exdrals\Bugebo\Repository\Account;
+use Exdrals\Bugebo\Repository\PDO\Account;
 use Exdrals\Bugebo\Controller\{
                                 Auth,
                                 Index,

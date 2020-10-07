@@ -70,7 +70,6 @@ class Account
     public function setPassword(string $password): self
     {
         $this->password = $password;
-        $this->setPasswordHash(password_hash($password, PASSWORD_DEFAULT));
         return $this;
     }
     

@@ -7,7 +7,7 @@ use Exdrals\Bugebo\Controller\AbstractController;
 use Exdrals\Excidia\Component\Template\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Exdrals\Bugebo\Controller\Auth;
-use Exdrals\Bugebo\Entity\Account;
+use Exdrals\Bugebo\Entity\Account as AccountEntity;
 use Exdrals\Excidia\Component\Http\Session;
 use Exdrals\Excidia\Component\Feature\FlashMessage;
 
@@ -44,7 +44,7 @@ class User extends AbstractController
     
     public function checkLogin()
     {        
-        $user = new Account;
+        $user = new AccountEntity;
         $username = $this->request->request->get('username');
         $password = $this->request->request->get('password');
         if ((!isset($username) || empty($username)) || (!isset($password) || empty($password)))
