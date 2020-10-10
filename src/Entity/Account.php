@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Entity;
 
+use DateTime;
+
 class Account
 {   
     
@@ -24,8 +26,8 @@ class Account
     
     public function __construct() 
     {
-        $this->registrationTime = new \DateTime();
-        $this->lastActiv = new \DateTime();
+        $this->registrationTime = new DateTime();
+        $this->lastActiv = new DateTime();
     }
 
 
@@ -84,23 +86,23 @@ class Account
         return $this;
     }
 
-    public function getRegistrationTime(): \DateTime
+    public function getRegistrationTime(): DateTime
     {
         return $this->registrationTime;
     }
     
-    public function setRegistrationTime(\DateTime $registrationTime): self
+    public function setRegistrationTime(DateTime $registrationTime): self
     {
         $this->registrationTime = $registrationTime;
         return $this;
     }
        
-    public function getLastActiv(): \DateTime
+    public function getLastActiv(): DateTime
     {
         return $this->lastActiv;
     }                    
 
-    public function setLastActiv(\DateTime $lastActiv): self
+    public function setLastActiv(DateTime $lastActiv): self
     {
         $this->lastActiv = $lastActiv;
         return $this;

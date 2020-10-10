@@ -1,11 +1,7 @@
-/nbproject/private/
-/nbproject/*
-composer.phar
-composer.lock
 /vendor/
 /config/database.php
-/config/config.ini
-*.csv
-.vscode/
 .idea/
+*.csv
 *.cache
+*.lock
+*.phar

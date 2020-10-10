@@ -6,7 +6,7 @@ namespace Exdrals\Bugebo\Repository\PDO;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 use Exdrals\Bugebo\Repository\Account as AccountRepositoryInterface;
 use Exdrals\Excidia\Component\Repository\Database;
-
+use DateTime;
 
 class Account implements AccountRepositoryInterface
 {
@@ -65,8 +65,8 @@ class Account implements AccountRepositoryInterface
         $account->setName($result['name']);
         $account->setEmail($result['email']);
         $account->setPasswordHash($result['passwordHash']);
-        $account->setRegistrationTime(new \DateTime($result['registrationTime']));
-        $account->setLastActiv(new \DateTime($result['lastActiv']));
+        $account->setRegistrationTime(new DateTime($result['registrationTime']));
+        $account->setLastActiv(new DateTime($result['lastActiv']));
         return $account;
     }    
 }
