@@ -21,13 +21,13 @@ class Account
     
     protected \DateTime $registrationTime;
     
-    protected \DateTime $lastActiv;
+    protected \DateTime $lastActive;
     
     
     public function __construct() 
     {
         $this->registrationTime = new DateTime();
-        $this->lastActiv = new DateTime();
+        $this->lastActive = new DateTime();
     }
 
 
@@ -97,14 +97,14 @@ class Account
         return $this;
     }
        
-    public function getLastActiv(): DateTime
+    public function getLastActive(): DateTime
     {
-        return $this->lastActiv;
+        return $this->lastActive;
     }                    
 
-    public function setLastActiv(DateTime $lastActiv): self
+    public function setLastActive(DateTime $lastActive): self
     {
-        $this->lastActiv = $lastActiv;
+        $this->lastActive = $lastActive;
         return $this;
     }
 }

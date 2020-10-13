@@ -66,7 +66,7 @@ class Account implements AccountRepositoryInterface
         $account->setEmail($result['email']);
         $account->setPasswordHash($result['passwordHash']);
         $account->setRegistrationTime(new DateTime($result['registrationTime']));
-        $account->setLastActiv(new DateTime($result['lastActiv']));
+        $account->setLastActive(new DateTime($result['lastActiv']));
         return $account;
     }    
 }
