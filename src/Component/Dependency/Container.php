@@ -9,11 +9,9 @@ use Exdrals\Excidia\Component\Exception\NotFoundException;
 class Container implements ContainerInterface
 {
     public function __construct(
-                                protected array $dependencies = [],
-                                protected array $objects = []
-                               )
-    {
-    }
+        protected array $dependencies = [],
+        protected array $objects = []
+    ) {}
 
     public function set(string $class, object $instance): void
     {
