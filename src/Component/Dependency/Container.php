@@ -8,37 +8,37 @@ use Exdrals\Excidia\Component\Exception\NotFoundException;
 
 class Container implements ContainerInterface
 {
-    public function __construct(
-        protected array $dependencies = [],
-        protected array $objects = []
-    ) {}
+    protected array $objects = [];
+
+    public function __construct(protected array $dependencies = [])
+    {}
 
     public function set(string $class, object $instance): void
     {
         $this->objects[$class] = $instance;
     }
 
-    public function get($class): object
+    public function get($id): object
     {
-        if (array_key_exists($class, $this->objects))
+        if (array_key_exists($id, $this->objects))
         {
-            return $this->objects[$class];
+            return $this->objects[$id];
         }
 
-        if (!$this->has($class))
+        if (!$this->has($id))
         {
-            throw new NotFoundException(sprintf('Dependency %s does not exist',$class));
+            throw new NotFoundException(sprintf('Dependency %s does not exist', $id));
         }
 
-        $params = array_map([$this, 'get'], $this->dependencies[$class]);
+        $params = array_map([$this, 'get'], $this->dependencies[$id]);
 
-        $this->objects[$class] = new $class(...$params);
+        $this->objects[$id] = new $id(...$params);
 
-        return $this->objects[$class];
+        return $this->objects[$id];
     }
 
-    public function has($dependency): bool
+    public function has($id): bool
     {
-        return (boolean)array_key_exists($dependency, $this->dependencies);
+        return (boolean)array_key_exists($id, $this->dependencies);
     }
 }
