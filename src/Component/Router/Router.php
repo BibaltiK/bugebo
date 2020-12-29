@@ -30,16 +30,11 @@ class Router
 
     public function match(): array
     {
+        $matches = [];
         foreach ($this->routes as $route => $routeInfo) {
-            $matches = [];
-            if(!preg_match(
-                $this->getRegEx($routeInfo['method'], $routeInfo['path']),
-                $this->requestURI,
-                $matches)
-            ) {
+            if(!$this->isRouteMatch($routeInfo, $matches)) {
                 continue;
             }
-
             if(array_key_exists('params', $routeInfo)) {
                 $methodParams = explode('/', rtrim($matches[array_key_last($matches)], '/'));
                 if(count($routeInfo['params']) != count($methodParams)) {
@@ -50,6 +45,15 @@ class Router
             return $routeInfo;
         }
         throw new RouteNotFoundException(sprintf('No matching route found for: <b>%s</b>', $this->requestURI));
+    }
+
+    protected function isRouteMatch(array $route, array &$matches): bool
+    {
+        return (bool)preg_match(
+                    $this->getRegEx($route['method'], $route['path']),
+                    $this->requestURI,
+                    $matches
+                );
     }
 
     protected function getModifiedRequestURI(): string
