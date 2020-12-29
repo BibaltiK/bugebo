@@ -2,27 +2,27 @@
 <html lang="en">
     <head>    
 
-        <?= $this->insert('partials/head'); ?>
+        <?= $this->render('partials/head'); ?>
 
     </head>
 
     <body>   
 
 
-        <?= $this->insert('partials/navigation_top'); ?>
+        <?= $this->render('partials/navigation_top'); ?>
 
-        <?= $this->insert($loginActionBar); ?>
+        <?= $this->render($loginActionBar); ?>
         
-        <?= $this->insert('partials/flashmessage'); ?>
+        <?= $this->render('partials/flashmessage'); ?>
 
         <main class="container" style="min-height: 500px">
             <?= $content ?>
         </main>
         <div style="min-height: 100px;"></div>
 
-        <?= $this->insert('partials/footer'); ?>
+        <?= $this->render('partials/footer'); ?>
 
-        <?= $this->insert('partials/scripts'); ?>
+        <?= $this->render('partials/scripts'); ?>
 
     </body>
 

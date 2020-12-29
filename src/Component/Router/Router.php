@@ -52,8 +52,7 @@ class Router
 
             }
             return $routeInfo;
-        }    
-          
+        }
         throw new RouteNotFoundException(sprintf('No matching route found for: <b>%s</b>',$this->requestURI));
     }
     
