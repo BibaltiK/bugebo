@@ -47,6 +47,6 @@ class Template
 
     public function setPath(string $path): void
     {
-        $this->path = $path;
+        $this->path = rtrim($path, '/') . '/';
     }
 }
