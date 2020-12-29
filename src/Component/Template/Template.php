@@ -15,14 +15,10 @@ use function sprintf;
 
 class Template
 {
-
+    protected string $path = '';
+    protected string $layout = 'default';
+    protected string $extension = '.phtml';
     protected array $data = [];
-
-    public function __construct(
-        protected string $path = '',
-        protected string $layout = 'default',
-        protected string $extension = '.phtml'
-    ) {}
 
     public function assign(string $key, mixed $value): void
     {
@@ -47,5 +43,10 @@ class Template
         ob_start();
         include $templateFile;
         return ob_get_clean();
+    }
+
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
     }
 }

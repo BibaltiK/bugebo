@@ -59,6 +59,7 @@ try
 
     /** @var  Template $template */
     $template = $dependency->get(Template::class);
+    $template->setPath(__DIR__ . '/../templates/');
 
     /** @var Auth $auth */
     $auth = $dependency->get(Auth::class);
