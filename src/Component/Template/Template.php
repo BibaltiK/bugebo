@@ -16,8 +16,6 @@ use function sprintf;
 class Template
 {
     protected string $path = '';
-    protected string $layout = 'default';
-    protected string $extension = '.phtml';
     protected array $data = [];
 
     public function assign(string $key, mixed $value): void
@@ -30,18 +28,20 @@ class Template
         return htmlspecialchars($value, ENT_QUOTES);
     }
 
-    public function render(string $templateFile = 'index'): string
+    public function render(string $fileName = 'index'): string
     {
-        if(empty($templateFile)) {
+        if(empty($fileName)) {
             return '';
         }
-        $templateFile = $this->path . 'layout/' . $this->layout . '/' . $templateFile . $this->extension;
-        if(!is_readable($templateFile)) {
-            throw new FileNotFoundException(sprintf('Templatefile <b>%s</b> not found or readable!', $templateFile));
+        $fileName = $this->path .  $fileName . '.phtml';
+        if(!is_readable($fileName)) {
+            throw new FileNotFoundException(
+                sprintf('Templatefile <b>%s</b> not found or readable!', $fileName)
+            );
         }
         extract($this->data);
         ob_start();
-        include $templateFile;
+        include $fileName;
         return ob_get_clean();
     }
 
