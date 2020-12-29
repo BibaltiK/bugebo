@@ -32,9 +32,11 @@ class Router
     {
         foreach ($this->routes as $route => $routeInfo) {
             $matches = [];
-            $regEx = $this->getRegEx($routeInfo['method'], $routeInfo['path']);
-
-            if(!preg_match($regEx, $this->requestURI, $matches)) {
+            if(!preg_match(
+                $this->getRegEx($routeInfo['method'], $routeInfo['path']),
+                $this->requestURI,
+                $matches)
+            ) {
                 continue;
             }
 
