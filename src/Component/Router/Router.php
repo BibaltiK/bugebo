@@ -57,8 +57,6 @@ class Router
 
     protected function getRegEx(string $method, string $route): string
     {
-        $regEx = '(' . $method . ')_' . $route;
-        $regEx = "~^$regEx/?$~i";
-        return $regEx;
+        return '~^(' . $method . ')_' . $route . '/?$~i';
     }
 }
