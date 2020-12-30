@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Exdrals\Excidia\Component\Router;
+namespace Exdrals\Bugebo\Component\Router;
 
-use Exdrals\Excidia\Component\Exception\RouteNotFoundException;
+use Exdrals\Bugebo\Component\Exception\RouteNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use function array_key_exists;
 use function array_key_last;

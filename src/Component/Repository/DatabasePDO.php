@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Exdrals\Excidia\Component\Repository;
-use Exdrals\Excidia\Component\Exception\{FileNotFoundException, 
+namespace Exdrals\Bugebo\Component\Repository;
+use Exdrals\Bugebo\Component\Exception\{FileNotFoundException,
                                          RouteNotFoundException,
                                          UnexpectedContentException
     };
-use \Exdrals\Excidia\Component\Repository\Database;
+use Exdrals\Bugebo\Component\Repository\Database;
 
 
 class DatabasePDO extends \PDO implements Database

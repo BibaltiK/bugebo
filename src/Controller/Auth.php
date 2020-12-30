@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Controller;
 
-use Exdrals\Excidia\Component\Http\Session;
-use Exdrals\Excidia\Component\Feature\FlashMessage;
+use Exdrals\Bugebo\Component\Http\Session;
+use Exdrals\Bugebo\Component\Feature\FlashMessage;
 use Exdrals\Bugebo\Repository\Account as AccountRepository;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 

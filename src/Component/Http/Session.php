@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Exdrals\Excidia\Component\Http;
+namespace Exdrals\Bugebo\Component\Http;
 
 
 class Session 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo\Repository\PDO;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
 use Exdrals\Bugebo\Repository\Account as AccountRepositoryInterface;
-use Exdrals\Excidia\Component\Repository\Database;
+use Exdrals\Bugebo\Component\Repository\Database;
 use DateTime;
 
 class Account implements AccountRepositoryInterface

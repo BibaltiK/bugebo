@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Exdrals\Excidia\Component\Dependency;
+namespace Exdrals\Bugebo\Component\Dependency;
 use Psr\Container\ContainerInterface;
-use Exdrals\Excidia\Component\Exception\NotFoundException;
+use Exdrals\Bugebo\Component\Exception\NotFoundException;
 
 
 class Container implements ContainerInterface

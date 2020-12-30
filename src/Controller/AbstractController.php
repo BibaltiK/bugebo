@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Controller;
-use Exdrals\Excidia\Component\Template\Template;
+use Exdrals\Bugebo\Component\Template\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractController {

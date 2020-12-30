@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Exdrals\Excidia\Component\Template;
+namespace Exdrals\Bugebo\Component\Template;
 
-use Exdrals\Excidia\Component\Exception\FileNotFoundException;
+use Exdrals\Bugebo\Component\Exception\FileNotFoundException;
 
 use function extract;
 use function htmlspecialchars;

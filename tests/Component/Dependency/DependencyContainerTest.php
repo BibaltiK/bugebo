@@ -2,7 +2,7 @@
 
 namespace Component\Dependency;
 
-use Exdrals\Excidia\Component\Dependency\Container;
+use Exdrals\Bugebo\Component\Dependency\Container;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 

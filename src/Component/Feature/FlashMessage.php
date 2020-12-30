@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Exdrals\Excidia\Component\Feature;
+namespace Exdrals\Bugebo\Component\Feature;
 
-use Exdrals\Excidia\Component\Http\Session;
+use Exdrals\Bugebo\Component\Http\Session;
 
 class FlashMessage 
 {

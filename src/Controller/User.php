@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Exdrals\Bugebo\Controller;
 use Exdrals\Bugebo\Controller\AbstractController;
-use Exdrals\Excidia\Component\Template\Template;
+use Exdrals\Bugebo\Component\Template\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Exdrals\Bugebo\Controller\Auth;
 use Exdrals\Bugebo\Entity\Account as AccountEntity;
-use Exdrals\Excidia\Component\Http\Session;
-use Exdrals\Excidia\Component\Feature\FlashMessage;
+use Exdrals\Bugebo\Component\Http\Session;
+use Exdrals\Bugebo\Component\Feature\FlashMessage;
 
 class User extends AbstractController
 {       

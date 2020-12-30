@@ -3,15 +3,14 @@ declare(strict_types=1);
 namespace Exdrals\Bugebo;
 use Exdrals\Bugebo\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Psr\Container\ContainerInterface;
-use Exdrals\Excidia\Component\Exception\{   FileNotFoundException,
+use Exdrals\Bugebo\Component\Exception\{   FileNotFoundException,
                                             RouteNotFoundException,
                                             UnexpectedContentException,
                                             NotFoundException
 };
-use Exdrals\Excidia\Component\Dependency\Container;
+use Exdrals\Bugebo\Component\Dependency\Container;
 use Exdrals\Bugebo\Controller\Auth;
-use Exdrals\Excidia\Component\{ Router\Router,
+use Exdrals\Bugebo\Component\{ Router\Router,
                                 Repository\DatabasePDO,
                                 Template\Template,
                                 Http\Session,

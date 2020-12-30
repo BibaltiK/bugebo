@@ -3,9 +3,9 @@
 declare(strict_types=1);
 namespace Exdrals\Bugebo\Controller;
 
-use Exdrals\Excidia\Component\Exception\RouteNotFoundException;
-use Exdrals\Excidia\Component\Template\Template;
-use Exdrals\Excidia\Component\Http\Session;
+use Exdrals\Bugebo\Component\Exception\RouteNotFoundException;
+use Exdrals\Bugebo\Component\Template\Template;
+use Exdrals\Bugebo\Component\Http\Session;
 use Symfony\Component\HttpFoundation\Request;
 
 
