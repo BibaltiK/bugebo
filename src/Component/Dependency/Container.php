@@ -20,18 +20,15 @@ class Container implements ContainerInterface
 
     public function get($id): object
     {
-        if (array_key_exists($id, $this->objects))
-        {
+        if (array_key_exists($id, $this->objects)) {
             return $this->objects[$id];
         }
 
-        if (!$this->has($id))
-        {
+        if (!$this->has($id)) {
             throw new NotFoundException(sprintf('Dependency %s does not exist', $id));
         }
 
         $params = array_map([$this, 'get'], $this->dependencies[$id]);
-
         $this->objects[$id] = new $id(...$params);
 
         return $this->objects[$id];
