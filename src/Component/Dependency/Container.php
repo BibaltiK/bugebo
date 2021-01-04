@@ -7,7 +7,6 @@ use Exdrals\Bugebo\Component\Exception\NotFoundException;
 use function array_key_exists;
 use function array_map;
 
-
 class Container implements ContainerInterface
 {
     protected array $objects = [];
