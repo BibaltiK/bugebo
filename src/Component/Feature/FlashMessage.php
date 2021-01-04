@@ -7,21 +7,17 @@ use Exdrals\Bugebo\Component\Http\Session;
 
 class FlashMessage 
 {
-    protected Session $session;
-        
-    public function __construct(Session $session) 
-    {
-        $this->session = $session;
-    }
+    public function __construct(protected Session $session)
+    {}
     
-    public function add(string $Message, string $level)
+    public function add(string $Message, string $level): void
     {           
         $flash = $this->session->get('flash');        
         $flash[$level][] = $Message;
         $this->session->set('flash', $flash);
     }
     
-    public function hasFlashMessage():bool
+    public function hasFlashMessage(): bool
     {
         return (bool)count($this->session->get('flash') ?? []);
     }
@@ -33,7 +29,7 @@ class FlashMessage
         return $flashMsg;
     }
     
-    public function clean()
+    public function clean(): void
     {
         $this->session->unsetSession('flash');
     }
