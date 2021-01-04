@@ -29,9 +29,8 @@ class Container implements ContainerInterface
         }
 
         $params = array_map([$this, 'get'], $this->dependencies[$id]);
-        $this->objects[$id] = new $id(...$params);
 
-        return $this->objects[$id];
+        return $this->objects[$id] = new $id(...$params);
     }
 
     public function has($id): bool
