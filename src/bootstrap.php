@@ -68,53 +68,10 @@ try
 
     /** @var AbstractController $controller */
     $controller = $dependency->get($route['controller']);
+
     $content = call_user_func_array(array($controller, $route['action']), $route['params'] ?? []);
 }
-catch (FileNotFoundException $e)
-{
-    if (!defined('DEVELOPE'))
-    {
-        header('Location: '.$session->get('redirect'));
-        exit();
-    }
-    echo '<pre>';
-    echo $e->getMessage();
-    exit();
-}
-catch (NotFoundException $e)
-{
-    if (!defined('DEVELOPE'))
-    {
-        header('Location: '.$session->get('redirect'));
-        exit();
-    }
-    echo '<pre>';
-    echo $e->getMessage();
-    exit();
-}
-catch (RouteNotFoundException $e)
-{
-    if (!defined('DEVELOPE'))
-    {
-        header('Location: '.$session->get('redirect'));
-        exit();
-    }
-    echo '<pre>';
-    echo $e->getMessage();
-    exit();
-}
-catch (UnexpectedContentException $e)
-{
-    if (!defined('DEVELOPE'))
-    {
-        header('Location: '.$session->get('redirect'));
-        exit();
-    }
-    echo '<pre>';
-    echo $e->getMessage();
-    exit();
-}
-catch (\Exception $e)
+catch (FileNotFoundException | RouteNotFoundException | \Exception | UnexpectedContentException | NotFoundException $e)
 {
     if (!defined('DEVELOPE'))
     {
