@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Transaction extends AbstractController
 {
-    const PAYMENTTYPE = ['incoming', 'outgoing'];
+    public const PAYMENT_TYPE = ['incoming', 'outgoing'];
     protected Auth $auth;
     protected Session $session;
 
@@ -33,9 +33,9 @@ class Transaction extends AbstractController
 
     }
 
-    public function newPayment(string $paymentType)
+    public function newPayment(string $paymentType): string
     {
-        if (!in_array($paymentType,self::PAYMENTTYPE))
+        if (!in_array($paymentType,self::PAYMENT_TYPE))
         {
             throw new RouteNotFoundException(sprintf('No matching Parametes found for: <b>%s</b>',$paymentType));
         }

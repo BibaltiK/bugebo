@@ -5,3 +5,4 @@
 *.cache
 *.lock
 *.phar
+.phpstorm.meta.php

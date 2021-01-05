@@ -6,13 +6,6 @@ namespace Exdrals\Bugebo\Component\Template;
 
 use Exdrals\Bugebo\Component\Exception\FileNotFoundException;
 
-use function extract;
-use function htmlspecialchars;
-use function is_readable;
-use function ob_get_clean;
-use function ob_start;
-use function sprintf;
-
 class Template
 {
     protected string $path = '';
@@ -25,7 +18,7 @@ class Template
 
     public function escape(string $value): string
     {
-        return htmlspecialchars($value, ENT_QUOTES);
+        return \htmlspecialchars($value, ENT_QUOTES);
     }
 
     public function render(string $fileName = 'index'): string
@@ -34,19 +27,19 @@ class Template
             return '';
         }
         $fileName = $this->path .  $fileName . '.phtml';
-        if(!is_readable($fileName)) {
+        if(!\is_readable($fileName)) {
             throw new FileNotFoundException(
-                sprintf('Templatefile <b>%s</b> not found or readable!', $fileName)
+                \sprintf('Templatefile <b>%s</b> not found or readable!', $fileName)
             );
         }
-        extract($this->data);
-        ob_start();
+        \extract($this->data);
+        \ob_start();
         include $fileName;
-        return ob_get_clean();
+        return \ob_get_clean();
     }
 
     public function setPath(string $path): void
     {
-        $this->path = rtrim($path, '/') . '/';
+        $this->path = \rtrim($path, '/') . '/';
     }
 }
