@@ -27,7 +27,7 @@
  * @version     0.1-dev
  * @author      BibaltiK
  * @see         https://github.com/BibaltiK/bugebo
- * @copyright   2020 exdrals.de
+ * @copyright   2020-2021 exdrals.de
  * @link        http://bugebo.exdrals.de
  * @license     MIT License <https://opensource.org/licenses/MIT>
  */
